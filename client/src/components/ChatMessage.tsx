@@ -85,14 +85,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           elevation={0}
           sx={{
             p: { xs: 1.5, sm: 2 },
-            pt: { xs: 2.5, sm: 3 }, // 위쪽 패딩 증가로 꼬리 공간 확보
             background: isUser 
               ? 'linear-gradient(135deg, #4285f4 0%, #34a853 100%)' 
               : 'white',
             color: isUser ? 'white' : 'text.primary',
             borderRadius: 3,
-            borderTopLeftRadius: !isUser ? 1 : 3,
-            borderTopRightRadius: isUser ? 1 : 3,
+            borderBottomLeftRadius: !isUser ? 0 : 3,
+            borderBottomRightRadius: isUser ? 0 : 3,
             maxWidth: '100%',
             wordBreak: 'break-word',
             border: !isUser ? '1px solid #f0f0f0' : 'none',
@@ -100,29 +99,39 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
               ? '0 4px 12px rgba(66, 133, 244, 0.3)' 
               : '0 2px 8px rgba(0,0,0,0.1)',
             position: 'relative',
-            '&::before': isUser ? {
+            '&::after': isUser ? {
               content: '""',
               position: 'absolute',
-              top: 8,
-              right: -6,
+              bottom: 4,
+              right: -8,
               width: 0,
               height: 0,
-              borderLeft: '6px solid transparent',
-              borderRight: '6px solid transparent',
-              borderTop: '6px solid #4285f4',
-              transform: 'rotate(45deg)',
+              borderLeft: '8px solid #4285f4',
+              borderTop: '6px solid transparent',
+              borderBottom: '6px solid transparent',
             } : {
               content: '""',
               position: 'absolute',
-              top: 8,
-              left: -6,
+              bottom: 4,
+              left: -8,
               width: 0,
               height: 0,
-              borderLeft: '6px solid transparent',
-              borderRight: '6px solid transparent',
-              borderTop: '6px solid white',
-              transform: 'rotate(-45deg)',
+              borderRight: '8px solid white',
+              borderTop: '6px solid transparent',
+              borderBottom: '6px solid transparent',
             },
+            // 챗봇 메시지 테두리와 매칭되는 꼬리 테두리
+            '&::before': !isUser ? {
+              content: '""',
+              position: 'absolute',
+              bottom: 4,
+              left: -9,
+              width: 0,
+              height: 0,
+              borderRight: '9px solid #f0f0f0',
+              borderTop: '7px solid transparent',
+              borderBottom: '7px solid transparent',
+            } : {},
           }}
         >
           {formatText(text)}
