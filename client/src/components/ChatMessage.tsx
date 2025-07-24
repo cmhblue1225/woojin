@@ -50,18 +50,20 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       sx={{
         display: 'flex',
         flexDirection: isUser ? 'row-reverse' : 'row',
-        mb: 2,
+        mb: { xs: 2, sm: 2.5 },
         alignItems: 'flex-start',
-        gap: 1,
+        gap: { xs: 1, sm: 1.5 },
+        maxWidth: '100%',
       }}
     >
       {/* 아바타 */}
       <Avatar
         sx={{
           bgcolor: isUser ? 'primary.main' : 'white',
-          width: 32,
-          height: 32,
-          border: !isUser ? '1px solid #e0e0e0' : 'none',
+          width: { xs: 36, sm: 40 },
+          height: { xs: 36, sm: 40 },
+          border: !isUser ? '2px solid #f0f0f0' : 'none',
+          boxShadow: !isUser ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
         }}
         src={!isUser ? '/woojin.jpg' : undefined}
       >
@@ -71,24 +73,55 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       {/* 메시지 내용 */}
       <Box
         sx={{
-          maxWidth: '70%',
+          maxWidth: { xs: 'calc(100% - 50px)', sm: '75%' },
           display: 'flex',
           flexDirection: 'column',
           alignItems: isUser ? 'flex-end' : 'flex-start',
+          minWidth: 0, // flex 자식의 shrink를 위해 필요
         }}
       >
         {/* 메시지 버블 */}
         <Paper
-          elevation={1}
+          elevation={0}
           sx={{
-            p: 2,
-            bgcolor: isUser ? 'primary.main' : 'white',
+            p: { xs: 1.5, sm: 2 },
+            bgcolor: isUser 
+              ? 'linear-gradient(135deg, #4285f4 0%, #34a853 100%)' 
+              : 'white',
             color: isUser ? 'white' : 'text.primary',
-            borderRadius: 2,
-            borderTopLeftRadius: !isUser ? 1 : 2,
-            borderTopRightRadius: isUser ? 1 : 2,
+            borderRadius: 3,
+            borderTopLeftRadius: !isUser ? 1 : 3,
+            borderTopRightRadius: isUser ? 1 : 3,
             maxWidth: '100%',
             wordBreak: 'break-word',
+            border: !isUser ? '1px solid #f0f0f0' : 'none',
+            boxShadow: isUser 
+              ? '0 4px 12px rgba(66, 133, 244, 0.3)' 
+              : '0 2px 8px rgba(0,0,0,0.1)',
+            position: 'relative',
+            '&::before': isUser ? {
+              content: '""',
+              position: 'absolute',
+              top: 8,
+              right: -6,
+              width: 0,
+              height: 0,
+              borderLeft: '6px solid transparent',
+              borderRight: '6px solid transparent',
+              borderTop: '6px solid #4285f4',
+              transform: 'rotate(45deg)',
+            } : {
+              content: '""',
+              position: 'absolute',
+              top: 8,
+              left: -6,
+              width: 0,
+              height: 0,
+              borderLeft: '6px solid transparent',
+              borderRight: '6px solid transparent',
+              borderTop: '6px solid white',
+              transform: 'rotate(-45deg)',
+            },
           }}
         >
           {formatText(text)}

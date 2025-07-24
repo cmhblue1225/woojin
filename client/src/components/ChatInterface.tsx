@@ -126,10 +126,23 @@ const ChatInterface: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ 
+      height: '100%', 
+      display: 'flex', 
+      flexDirection: 'column',
+      maxWidth: '100%',
+    }}>
       {error && (
         <Fade in={!!error}>
-          <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>
+          <Alert 
+            severity="error" 
+            sx={{ 
+              mb: { xs: 1, sm: 2 },
+              mx: { xs: 0, sm: 0 },
+              borderRadius: 2,
+            }} 
+            onClose={() => setError(null)}
+          >
             {error}
           </Alert>
         </Fade>
@@ -137,15 +150,19 @@ const ChatInterface: React.FC = () => {
 
       {/* 채팅 메시지 영역 */}
       <Paper
-        elevation={2}
+        elevation={0}
         sx={{
           flex: 1,
-          p: 2,
-          mb: 2,
+          p: { xs: 1, sm: 2 },
+          mb: { xs: 1, sm: 2 },
           overflow: 'auto',
-          backgroundColor: '#fafafa',
+          backgroundColor: 'transparent',
           display: 'flex',
           flexDirection: 'column',
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 3,
+          background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
         }}
       >
         {messages.map((message) => (
@@ -185,8 +202,18 @@ const ChatInterface: React.FC = () => {
       )}
 
       {/* 메시지 입력 영역 */}
-      <Paper elevation={2} sx={{ p: 2 }}>
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+      <Paper 
+        elevation={0} 
+        sx={{ 
+          p: { xs: 1.5, sm: 2 },
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 3,
+          background: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(10px)',
+        }}
+      >
+        <Box sx={{ display: 'flex', gap: { xs: 1, sm: 1.5 }, alignItems: 'flex-end' }}>
           <TextField
             fullWidth
             multiline
@@ -194,13 +221,26 @@ const ChatInterface: React.FC = () => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="궁금한 것을 물어보세요... (Enter로 전송, Shift+Enter로 줄바꿈)"
+            placeholder="궁금한 것을 물어보세요..."
             variant="outlined"
             size="small"
             disabled={isLoading}
             sx={{
               '& .MuiOutlinedInput-root': {
                 backgroundColor: 'white',
+                borderRadius: 2,
+                border: '2px solid transparent',
+                transition: 'all 0.2s ease-in-out',
+                '&:hover': {
+                  borderColor: 'primary.light',
+                },
+                '&.Mui-focused': {
+                  borderColor: 'primary.main',
+                  boxShadow: '0 0 0 3px rgba(66, 133, 244, 0.1)',
+                },
+              },
+              '& .MuiInputBase-input': {
+                fontSize: { xs: '0.9rem', sm: '1rem' },
               },
             }}
           />
@@ -211,16 +251,39 @@ const ChatInterface: React.FC = () => {
             sx={{
               bgcolor: 'primary.main',
               color: 'white',
-              '&:hover': { bgcolor: 'primary.dark' },
-              '&:disabled': { bgcolor: 'grey.300' },
+              width: { xs: 40, sm: 48 },
+              height: { xs: 40, sm: 48 },
+              borderRadius: 2,
+              transition: 'all 0.2s ease-in-out',
+              '&:hover': { 
+                bgcolor: 'primary.dark',
+                transform: 'scale(1.05)',
+              },
+              '&:disabled': { 
+                bgcolor: 'grey.300',
+                transform: 'none',
+              },
             }}
           >
-            <SendIcon />
+            <SendIcon fontSize={isLoading ? 'small' : 'medium'} />
           </IconButton>
         </Box>
         
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-          💡 수강신청, 시간표, 학사정보 등에 대해 질문해보세요!
+        <Typography 
+          variant="caption" 
+          color="text.secondary" 
+          sx={{ 
+            mt: { xs: 0.5, sm: 1 }, 
+            display: 'block',
+            fontSize: { xs: '0.7rem', sm: '0.75rem' },
+            textAlign: 'center',
+          }}
+        >
+          {inputText.length === 0 ? (
+            '💡 Enter로 전송, Shift+Enter로 줄바꿈'
+          ) : (
+            `${inputText.length}/500자`
+          )}
         </Typography>
       </Paper>
     </Box>

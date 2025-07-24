@@ -19,15 +19,42 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   disabled = false,
 }) => {
   return (
-    <Paper elevation={1} sx={{ p: 2, mb: 2, bgcolor: 'background.paper' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+    <Paper 
+      elevation={0} 
+      sx={{ 
+        p: { xs: 1.5, sm: 2 }, 
+        mb: { xs: 1, sm: 2 }, 
+        bgcolor: 'background.paper',
+        border: '1px solid',
+        borderColor: 'divider',
+        borderRadius: 3,
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+      }}
+    >
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 1, 
+        mb: { xs: 1, sm: 1.5 },
+        justifyContent: 'center',
+      }}>
         <QuestionAnswerIcon color="primary" fontSize="small" />
-        <Typography variant="subtitle2" color="primary" fontWeight="600">
+        <Typography 
+          variant="subtitle2" 
+          color="primary" 
+          fontWeight="600"
+          sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+        >
           자주 묻는 질문들
         </Typography>
       </Box>
       
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        gap: { xs: 0.75, sm: 1 },
+        justifyContent: 'center',
+      }}>
         {actions.map((action, index) => (
           <Chip
             key={index}
@@ -37,22 +64,28 @@ const QuickActions: React.FC<QuickActionsProps> = ({
             variant="outlined"
             sx={{
               cursor: disabled ? 'default' : 'pointer',
-              fontSize: '0.85rem',
+              fontSize: { xs: '0.8rem', sm: '0.85rem' },
               height: 'auto',
-              py: 0.5,
-              px: 1,
+              py: { xs: 0.75, sm: 1 },
+              px: { xs: 1, sm: 1.5 },
+              borderRadius: 2,
+              transition: 'all 0.3s ease-in-out',
               '& .MuiChip-label': {
                 whiteSpace: 'normal',
-                textAlign: 'left',
-                lineHeight: 1.2,
-                padding: '4px 8px',
+                textAlign: 'center',
+                lineHeight: 1.3,
+                padding: { xs: '6px 8px', sm: '8px 12px' },
               },
               '&:hover': {
                 bgcolor: disabled ? 'transparent' : 'primary.main',
                 color: disabled ? 'inherit' : 'white',
                 borderColor: disabled ? 'divider' : 'primary.main',
+                transform: disabled ? 'none' : 'translateY(-2px)',
+                boxShadow: disabled ? 'none' : '0 4px 12px rgba(66, 133, 244, 0.3)',
               },
-              transition: 'all 0.2s ease-in-out',
+              '&:active': {
+                transform: disabled ? 'none' : 'translateY(0px)',
+              },
             }}
           />
         ))}
@@ -61,7 +94,12 @@ const QuickActions: React.FC<QuickActionsProps> = ({
       <Typography
         variant="caption"
         color="text.secondary"
-        sx={{ mt: 1, display: 'block' }}
+        sx={{ 
+          mt: { xs: 1, sm: 1.5 }, 
+          display: 'block',
+          textAlign: 'center',
+          fontSize: { xs: '0.7rem', sm: '0.75rem' },
+        }}
       >
         💡 위 질문들을 클릭하거나 직접 질문을 입력해보세요!
       </Typography>
