@@ -1,0 +1,34 @@
+# Render.com 배포 설정 파일
+services:
+  - type: web
+    name: daejin-chatbot
+    env: node
+    plan: free
+    buildCommand: npm run install-all && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLAUDE_API_KEY
+        sync: false  # 수동으로 설정
+      - key: OPENAI_API_KEY
+        sync: false  # 수동으로 설정
+      - key: SUPABASE_URL
+        sync: false  # 수동으로 설정
+      - key: SUPABASE_ANON_KEY
+        sync: false  # 수동으로 설정
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: CLAUDE_MODEL
+        value: claude-3-sonnet-20240229
+      - key: MAX_TOKENS
+        value: 2000
+      - key: CHUNK_SIZE
+        value: 1000
+      - key: CHUNK_OVERLAP
+        value: 200
+      - key: BATCH_SIZE
+        value: 50
