@@ -32,10 +32,22 @@ const anthropic = new Anthropic({
 // RAG 검색 함수
 async function searchDocuments(query, limit = 5, sourceType = null) {
     try {
+        // 검색어 확장 (교수 이름 검색 개선)
+        let expandedQuery = query;
+        if (query.includes('교수') || query.includes('선생님')) {
+            // "박정규 교수" -> "박정규 교수 강의 과목 담당 수업"
+            expandedQuery = `${query} 강의 과목 담당 수업 시간표`;
+        }
+        if (query.includes('모든 교수') || query.includes('교수님들')) {
+            expandedQuery = `${query} 교수 담당 강의 시간표 과목 목록`;
+        }
+        
+        console.log(`[검색 쿼리] 원본: "${query}" → 확장: "${expandedQuery}"`);
+
         // 쿼리를 임베딩으로 변환
         const embeddingResponse = await openai.embeddings.create({
             model: process.env.EMBEDDING_MODEL || 'text-embedding-3-small',
-            input: query,
+            input: expandedQuery,
             encoding_format: "float",
         });
 
@@ -45,7 +57,7 @@ async function searchDocuments(query, limit = 5, sourceType = null) {
         const { data, error } = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.3,
+                match_threshold: 0.1, // 임계값을 0.3에서 0.1로 대폭 낮춤
                 match_count: limit,
                 filter_source_type: sourceType
             });
@@ -53,6 +65,14 @@ async function searchDocuments(query, limit = 5, sourceType = null) {
         if (error) {
             console.error('검색 오류:', error);
             throw error;
+        }
+
+        // 검색 결과 로깅 강화
+        console.log(`[검색 결과] "${query}" - ${data?.length || 0}개 문서 발견`);
+        if (data && data.length > 0) {
+            data.forEach((doc, index) => {
+                console.log(`  ${index + 1}. 유사도: ${doc.similarity?.toFixed(3)}, 소스: ${doc.source_file}, 내용: ${doc.content.substring(0, 100)}...`);
+            });
         }
 
         return data || [];
