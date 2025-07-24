@@ -58,10 +58,12 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       {/* 아바타 */}
       <Avatar
         sx={{
-          bgcolor: isUser ? 'primary.main' : 'secondary.main',
+          bgcolor: isUser ? 'primary.main' : 'white',
           width: 32,
           height: 32,
+          border: !isUser ? '1px solid #e0e0e0' : 'none',
         }}
+        src={!isUser ? '/woojin.jpg' : undefined}
       >
         {isUser ? <PersonIcon fontSize="small" /> : <SmartToyIcon fontSize="small" />}
       </Avatar>

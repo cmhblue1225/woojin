@@ -9,6 +9,7 @@ import {
   CircularProgress,
   Alert,
   Fade,
+  Avatar,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -153,7 +154,17 @@ const ChatInterface: React.FC = () => {
         
         {isLoading && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2, alignSelf: 'flex-start' }}>
-            <SmartToyIcon color="primary" />
+            <Avatar
+              sx={{
+                width: 32,
+                height: 32,
+                bgcolor: 'white',
+                border: '1px solid #e0e0e0',
+              }}
+              src="/woojin.jpg"
+            >
+              <SmartToyIcon fontSize="small" />
+            </Avatar>
             <CircularProgress size={20} />
             <Typography variant="body2" color="text.secondary">
               답변을 생성하고 있습니다...
