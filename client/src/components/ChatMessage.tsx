@@ -85,6 +85,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           elevation={0}
           sx={{
             p: { xs: 1.5, sm: 2 },
+            pt: { xs: 2.5, sm: 3 }, // 위쪽 패딩 증가로 꼬리 공간 확보
             background: isUser 
               ? 'linear-gradient(135deg, #4285f4 0%, #34a853 100%)' 
               : 'white',
@@ -102,7 +103,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             '&::before': isUser ? {
               content: '""',
               position: 'absolute',
-              top: 16,
+              top: 8,
               right: -6,
               width: 0,
               height: 0,
@@ -113,7 +114,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             } : {
               content: '""',
               position: 'absolute',
-              top: 16,
+              top: 8,
               left: -6,
               width: 0,
               height: 0,
