@@ -45,7 +45,7 @@ async function searchDocuments(query, limit = 5, sourceType = null) {
         const { data, error } = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.7,
+                match_threshold: 0.3,
                 match_count: limit,
                 filter_source_type: sourceType
             });
@@ -95,7 +95,7 @@ ${context}`;
 
     try {
         const message = await anthropic.messages.create({
-            model: process.env.CLAUDE_MODEL || 'claude-3-sonnet-20240229',
+            model: process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022',
             max_tokens: parseInt(process.env.MAX_TOKENS) || 2000,
             system: systemPrompt,
             messages: [
@@ -232,7 +232,7 @@ app.post('/api/chat/stream', async (req, res) => {
 
         // Claude 스트리밍 응답
         const stream = await anthropic.messages.stream({
-            model: process.env.CLAUDE_MODEL || 'claude-3-sonnet-20240229',
+            model: process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022',
             max_tokens: parseInt(process.env.MAX_TOKENS) || 2000,
             system: `당신은 대진대학교의 도움이 되는 AI 챗봇입니다. 다음 컨텍스트를 기반으로 한국어로 친근하게 답변하세요:\n\n${context}`,
             messages: [{ role: 'user', content: message }]
