@@ -85,7 +85,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           elevation={0}
           sx={{
             p: { xs: 1.5, sm: 2 },
-            bgcolor: isUser 
+            background: isUser 
               ? 'linear-gradient(135deg, #4285f4 0%, #34a853 100%)' 
               : 'white',
             color: isUser ? 'white' : 'text.primary',
@@ -102,7 +102,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             '&::before': isUser ? {
               content: '""',
               position: 'absolute',
-              top: 8,
+              top: 12,
               right: -6,
               width: 0,
               height: 0,
@@ -113,7 +113,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             } : {
               content: '""',
               position: 'absolute',
-              top: 8,
+              top: 12,
               left: -6,
               width: 0,
               height: 0,
