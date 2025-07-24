@@ -45,7 +45,7 @@ async function searchDocuments(query, limit = 5, sourceType = null) {
         const { data, error } = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.5,
+                match_threshold: 0.3,
                 match_count: limit,
                 filter_source_type: sourceType
             });
