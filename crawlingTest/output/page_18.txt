@@ -1,0 +1,103 @@
+[URL] https://museum.daejin.ac.kr
+
+대진대학교 박물관
+/WEB-INF/jsp/k2web/com/cop/site/layout.jsp
+museum_JW_MS_K2WT001_M
+fnctId=imageSlide,fnctNo=269
+비주얼(
+2
+개)
+1
+2
+1
+2
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+imageSlideSetupSeq=269,cnvrsVe=1,stopTime=5,pcCo=1,cnvrsMth=FADEIN,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+대진대학교 박물관
+DAEJIN UNIVERSITY MUSEUM
+대진대학교 역사를 기록하고, 지역문화유산의 발굴과 연구를 진행하는 대학 박물관
+Let’s DJ! DAEJIN
+박물관 정보광장
+fnctId=recentBbs,fnctNo=171
+공지사항
+최근게시물이(가) 없습니다.
+더보기
+READ MORE
+박물관 알림
+fnctId=imageSlide,fnctNo=271
+퀵메뉴(
+3
+개)
+공지사항
+박물관 공지사항으로 이동합니다.
+유물관람 등 행사갤러리
+대진대 박물관의 유물관람 등 행사갤러리 안내입니다
+묻고 답하기
+대진대학교 박물관에 대한 묻고 답하기
+1
+1
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+imageSlideSetupSeq=271,cnvrsVe=1,stopTime=5,pcCo=6,cnvrsMth=SLIDE,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+fnctId=imageSlide,fnctNo=270
+배너존(
+8
+개)
+BANNER ZONE
+1
+8
+1
+2
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+학생생활상담센터
+학생생활상담센터
+E-LEARNING
+E-LEARNING
+T-WIN
+T-WIN
+교육방송국
+교육방송국
+인터넷증명서발급
+인터넷증명서발급
+대학정보공시
+대학정보공시
+대진대신문사
+대진대신문사
+발전기금
+발전기금
+학생생활상담센터
+학생생활상담센터
+E-LEARNING
+E-LEARNING
+T-WIN
+T-WIN
+교육방송국
+교육방송국
+인터넷증명서발급
+인터넷증명서발급
+대학정보공시
+대학정보공시
+대진대신문사
+대진대신문사
+발전기금
+발전기금
+학생생활상담센터
+학생생활상담센터
+E-LEARNING
+E-LEARNING
+T-WIN
+T-WIN
+교육방송국
+교육방송국
+인터넷증명서발급
+인터넷증명서발급
+imageSlideSetupSeq=270,cnvrsVe=1,stopTime=5,pcCo=8,cnvrsMth=SLIDE,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+TOP

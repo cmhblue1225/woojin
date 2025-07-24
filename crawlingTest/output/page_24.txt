@@ -1,0 +1,32 @@
+[URL] https://humanlifelong.daejin.ac.kr/humanlifelong/3131/subview.do
+
+학과사무실
+교과과정
+커뮤니티
+구성원소개
+구성원의 자긍심이 넘치는 행복한 대학
+인쇄하기
+즐겨찾기
+즐겨찾는 메뉴
+닫기
+메뉴추가
+초기화
+공유하기
+닫기
+페이스북
+트위터
+핀터레스트
+주소
+학과사무실
+/WEB-INF/jsp/k2web/com/cop/site/layout.jsp
+humanlifelong_JW_MS_K2WT001_S
+주소
+경기도 포천시 호국로 1007 대진대학교 국제학관 2층 206호 휴먼케어평생교육학과
+전화번호
+031-539-2902
+이메일
+zeni25@daejin.ac.kr
+학기 중 운영시간 : 평일 09:00~17:00
+방학 중 운영시간 : 평일 10:00~16:00
+점심시간 : 12:00~13:00
+TOP

@@ -102,7 +102,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             '&::before': isUser ? {
               content: '""',
               position: 'absolute',
-              top: 12,
+              top: 16,
               right: -6,
               width: 0,
               height: 0,
@@ -113,7 +113,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             } : {
               content: '""',
               position: 'absolute',
-              top: 12,
+              top: 16,
               left: -6,
               width: 0,
               height: 0,
