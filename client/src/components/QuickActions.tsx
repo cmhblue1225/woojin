@@ -8,27 +8,33 @@ import {
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 interface QuickActionsProps {
-  actions: string[];
-  onActionClick: (action: string) => void;
+  onQuickAction: (text: string) => void;
   disabled?: boolean;
 }
 
 const QuickActions: React.FC<QuickActionsProps> = ({
-  actions,
-  onActionClick,
+  onQuickAction,
   disabled = false,
 }) => {
+  // 기본 빠른 액션 목록
+  const actions = [
+    "컴퓨터공학과 커리큘럼은 어떻게 되나요?",
+    "기계공학과 교수님들을 알려주세요",
+    "대진대학교 입학 전형은 어떻게 되나요?",
+    "도서관 이용 시간을 알려주세요",
+    "장학금 제도에 대해 설명해주세요",
+    "졸업 요건이 궁금합니다"
+  ];
   return (
     <Paper 
       elevation={0} 
       sx={{ 
         p: { xs: 1.5, sm: 2 }, 
         mb: { xs: 1, sm: 2 }, 
-        bgcolor: 'background.paper',
-        border: '1px solid',
-        borderColor: 'divider',
         borderRadius: 3,
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+        background: 'rgba(30, 41, 59, 0.6)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(59, 130, 246, 0.2)',
       }}
     >
       <Box sx={{ 
@@ -41,9 +47,11 @@ const QuickActions: React.FC<QuickActionsProps> = ({
         <QuestionAnswerIcon color="primary" fontSize="small" />
         <Typography 
           variant="subtitle2" 
-          color="primary" 
           fontWeight="600"
-          sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+          sx={{ 
+            fontSize: { xs: '0.9rem', sm: '1rem' },
+            color: 'text.primary'
+          }}
         >
           자주 묻는 질문들
         </Typography>
@@ -59,7 +67,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
           <Chip
             key={index}
             label={action}
-            onClick={() => !disabled && onActionClick(action)}
+            onClick={() => !disabled && onQuickAction(action)}
             disabled={disabled}
             variant="outlined"
             sx={{
@@ -77,11 +85,11 @@ const QuickActions: React.FC<QuickActionsProps> = ({
                 padding: { xs: '6px 8px', sm: '8px 12px' },
               },
               '&:hover': {
-                bgcolor: disabled ? 'transparent' : 'primary.main',
-                color: disabled ? 'inherit' : 'white',
-                borderColor: disabled ? 'divider' : 'primary.main',
+                bgcolor: disabled ? 'transparent' : 'rgba(59, 130, 246, 0.2)',
+                color: disabled ? 'inherit' : 'primary.light',
+                borderColor: disabled ? 'rgba(59, 130, 246, 0.2)' : 'primary.main',
                 transform: disabled ? 'none' : 'translateY(-2px)',
-                boxShadow: disabled ? 'none' : '0 4px 12px rgba(66, 133, 244, 0.3)',
+                boxShadow: disabled ? 'none' : '0 4px 12px rgba(59, 130, 246, 0.3)',
               },
               '&:active': {
                 transform: disabled ? 'none' : 'translateY(0px)',
