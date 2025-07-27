@@ -49,7 +49,12 @@ const ChatApp: React.FC = () => {
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    console.log('[클라이언트] 사용자 메시지 추가:', userMessage);
+    setMessages(prev => {
+      const newMessages = [...prev, userMessage];
+      console.log('[클라이언트] 현재 메시지 목록:', newMessages);
+      return newMessages;
+    });
     setInputText('');
     setIsLoading(true);
 
@@ -67,15 +72,20 @@ const ChatApp: React.FC = () => {
       }
 
       const data = await response.json();
+      console.log('[클라이언트] 서버 응답 받음:', data);
+      console.log('[클라이언트] data.response 타입:', typeof data.response);
+      console.log('[클라이언트] data.response 내용:', data.response);
+      console.log('[클라이언트] data.context:', data.context);
       
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: data.response,
+        text: data.response || '응답을 받지 못했습니다.',
         isUser: false,
         timestamp: new Date(),
         context: data.context,
       };
 
+      console.log('[클라이언트] 메시지 설정:', assistantMessage);
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
