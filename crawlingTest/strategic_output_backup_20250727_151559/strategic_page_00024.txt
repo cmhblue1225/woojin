@@ -1,0 +1,43 @@
+[URL] https://nurse.daejin.ac.kr/bbs/nurse/553/446804/artclView.do?layout=unknown
+[DEPTH] 3
+[DOMAIN] nurse.daejin.ac.kr
+[TIMESTAMP] 2025-07-27T15:11:38.757668
+[LENGTH] 409
+
+포토갤러리 -
+바로가기 메뉴
+본문 바로가기
+주메뉴 바로가기
+구성원소개
+동문회
+커뮤니티구성원의 자긍심이 넘치는 행복한 대학
+인쇄하기
+즐겨찾기
+즐겨찾는 메뉴
+메뉴추가
+초기화
+공유하기
+페이스북
+트위터
+핀터레스트
+홈으로
+커뮤니티학과소개교육과정구성원소개커뮤니티동문회입학안내이용안내
+포토갤러리학과 공지사항취업정보포토갤러리학과Q&A학과 자료실
+포토갤러리
+/WEB-INF/jsp/k2web/com/cop/site/layout.jsp
+nurse_JW_MS_K2WT001_S
+fnctId=bbs,fnctNo=553
+글번호
+446804
+미스터 나이팅게일 동아리 회식(2024.03.12)
+작성일
+2024.05.14
+수정일
+2024.05.14
+작성자
+간호학과
+조회수
+852
+첨부파일
+KakaoTalk_20240514_141723292_03.jpg
+TOP

@@ -1,0 +1,1 @@
+[URL] https://rotc.daejin.ac.kr/rotc/5426/subview.do\n[DEPTH] 8\n[DOMAIN] rotc.daejin.ac.kr\n[TIMESTAMP] 2025-07-27T13:21:02.833492\n[LENGTH] 188\n\n근무인원\nROTC 소개\n학군단 소개\n구성원의 자긍심이 넘치는 행복한 대학\n인쇄하기\n즐겨찾기\n즐겨찾는 메뉴\n초기화\n/WEB-INF/jsp/k2web/com/cop/site/layout.jsp\nrotc_JW_MS_K2WT001_S\n근무인원을(를) 안내하는 표\n학군단장\n훈육관\n행정실장\n인재선발관\n인원(명)\nTOP

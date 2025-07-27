@@ -1,0 +1,69 @@
+2025-07-27 15:03:31,091 - INFO - 🔍 기존 크롤링 데이터 로드 중...
+2025-07-27 15:03:31,341 - INFO - ✅ 기존 URL 5,118개 로드 완료
+2025-07-27 15:03:31,341 - INFO - 🚀 전략적 보완 크롤링 시작
+2025-07-27 15:03:31,341 - INFO - 📊 기존 URL: 5,118개
+2025-07-27 15:03:31,341 - INFO - 🎯 우선순위 타겟: 26개
+2025-07-27 15:03:35,336 - INFO - 💾 저장: strategic_page_00000.txt (www.daejin.ac.kr) - 6629자
+2025-07-27 15:03:35,348 - INFO - 💾 저장: strategic_page_00001.txt (www.daejin.ac.kr) - 6107자
+2025-07-27 15:03:35,348 - INFO - 💾 저장: strategic_page_00002.txt (www.daejin.ac.kr) - 5644자
+2025-07-27 15:03:39,907 - INFO - 💾 저장: strategic_page_00003.txt (www.daejin.ac.kr) - 6462자
+2025-07-27 15:03:39,965 - INFO - 💾 저장: strategic_page_00004.txt (www.daejin.ac.kr) - 5490자
+2025-07-27 15:03:41,982 - INFO - 💾 저장: strategic_page_00005.txt (www.daejin.ac.kr) - 15963자
+2025-07-27 15:03:46,130 - INFO - 💾 저장: strategic_page_00006.txt (www.daejin.ac.kr) - 5463자
+2025-07-27 15:03:46,130 - INFO - 💾 저장: strategic_page_00007.txt (www.daejin.ac.kr) - 5568자
+2025-07-27 15:03:46,760 - INFO - 💾 저장: strategic_page_00008.txt (www.daejin.ac.kr) - 8238자
+2025-07-27 15:03:51,247 - INFO - 💾 저장: strategic_page_00009.txt (www.daejin.ac.kr) - 5370자
+2025-07-27 15:03:51,251 - INFO - 💾 저장: strategic_page_00010.txt (www.daejin.ac.kr) - 5286자
+2025-07-27 15:03:51,536 - INFO - 💾 저장: strategic_page_00011.txt (www.daejin.ac.kr) - 5211자
+2025-07-27 15:03:55,831 - INFO - 💾 저장: strategic_page_00012.txt (www.daejin.ac.kr) - 5391자
+2025-07-27 15:03:55,841 - INFO - 💾 저장: strategic_page_00013.txt (www.daejin.ac.kr) - 5733자
+2025-07-27 15:03:56,453 - INFO - 💾 저장: strategic_page_00014.txt (www.daejin.ac.kr) - 5546자
+2025-07-27 15:04:01,258 - INFO - 💾 저장: strategic_page_00015.txt (www.daejin.ac.kr) - 5578자
+2025-07-27 15:04:01,287 - INFO - 💾 저장: strategic_page_00016.txt (www.daejin.ac.kr) - 5239자
+2025-07-27 15:04:01,333 - INFO - 💾 저장: strategic_page_00017.txt (www.daejin.ac.kr) - 5553자
+2025-07-27 15:04:06,188 - INFO - 💾 저장: strategic_page_00018.txt (www.daejin.ac.kr) - 5553자
+2025-07-27 15:04:06,268 - INFO - 💾 저장: strategic_page_00019.txt (www.daejin.ac.kr) - 5479자
+2025-07-27 15:04:09,948 - INFO - 💾 저장: strategic_page_00020.txt (www.daejin.ac.kr) - 5369자
+2025-07-27 15:04:14,266 - INFO - 💾 저장: strategic_page_00021.txt (www.daejin.ac.kr) - 5175자
+2025-07-27 15:04:14,966 - INFO - 💾 저장: strategic_page_00022.txt (www.daejin.ac.kr) - 5927자
+2025-07-27 15:04:15,047 - INFO - 💾 저장: strategic_page_00023.txt (www.daejin.ac.kr) - 12014자
+2025-07-27 15:04:19,247 - INFO - 💾 저장: strategic_page_00024.txt (www.daejin.ac.kr) - 5651자
+2025-07-27 15:04:19,829 - INFO - 💾 저장: strategic_page_00025.txt (www.daejin.ac.kr) - 5175자
+2025-07-27 15:04:19,869 - INFO - 💾 저장: strategic_page_00026.txt (www.daejin.ac.kr) - 5927자
+2025-07-27 15:04:24,073 - INFO - 💾 저장: strategic_page_00027.txt (www.daejin.ac.kr) - 5849자
+2025-07-27 15:04:24,764 - INFO - 💾 저장: strategic_page_00028.txt (www.daejin.ac.kr) - 5663자
+2025-07-27 15:04:24,786 - INFO - 💾 저장: strategic_page_00029.txt (www.daejin.ac.kr) - 5861자
+2025-07-27 15:04:29,678 - INFO - 💾 저장: strategic_page_00030.txt (www.daejin.ac.kr) - 5861자
+2025-07-27 15:04:29,716 - INFO - 💾 저장: strategic_page_00031.txt (www.daejin.ac.kr) - 5663자
+2025-07-27 15:04:29,757 - INFO - 💾 저장: strategic_page_00032.txt (www.daejin.ac.kr) - 5198자
+2025-07-27 15:04:34,686 - INFO - 💾 저장: strategic_page_00033.txt (www.daejin.ac.kr) - 5460자
+2025-07-27 15:04:34,709 - INFO - 💾 저장: strategic_page_00034.txt (www.daejin.ac.kr) - 5861자
+2025-07-27 15:04:34,709 - INFO - 💾 저장: strategic_page_00035.txt (www.daejin.ac.kr) - 5861자
+2025-07-27 15:04:38,973 - INFO - 💾 저장: strategic_page_00036.txt (www.daejin.ac.kr) - 5831자
+2025-07-27 15:04:39,562 - INFO - 💾 저장: strategic_page_00037.txt (www.daejin.ac.kr) - 5207자
+2025-07-27 15:04:39,620 - INFO - 💾 저장: strategic_page_00038.txt (www.daejin.ac.kr) - 5460자
+2025-07-27 15:04:44,760 - INFO - 💾 저장: strategic_page_00039.txt (www.daejin.ac.kr) - 5604자
+2025-07-27 15:04:44,782 - INFO - 💾 저장: strategic_page_00040.txt (www.daejin.ac.kr) - 6218자
+2025-07-27 15:04:44,795 - INFO - 💾 저장: strategic_page_00041.txt (www.daejin.ac.kr) - 5831자
+2025-07-27 15:04:49,041 - INFO - 💾 저장: strategic_page_00042.txt (www.daejin.ac.kr) - 6218자
+2025-07-27 15:04:49,674 - INFO - 💾 저장: strategic_page_00043.txt (www.daejin.ac.kr) - 5402자
+2025-07-27 15:04:49,693 - INFO - 💾 저장: strategic_page_00044.txt (www.daejin.ac.kr) - 5831자
+2025-07-27 15:04:54,441 - INFO - 💾 저장: strategic_page_00045.txt (www.daejin.ac.kr) - 5402자
+2025-07-27 15:04:54,473 - INFO - 💾 저장: strategic_page_00046.txt (www.daejin.ac.kr) - 5831자
+2025-07-27 15:04:54,516 - INFO - 💾 저장: strategic_page_00047.txt (www.daejin.ac.kr) - 5284자
+2025-07-27 15:04:58,080 - INFO - 💾 저장: strategic_page_00048.txt (ce.daejin.ac.kr) - 3635자
+2025-07-27 15:05:02,229 - INFO - 💾 저장: strategic_page_00049.txt (ce.daejin.ac.kr) - 1457자
+2025-07-27 15:05:02,691 - INFO - 💾 저장: strategic_page_00050.txt (ce.daejin.ac.kr) - 1110자
+2025-07-27 15:05:02,971 - INFO - 💾 저장: strategic_page_00051.txt (ce.daejin.ac.kr) - 5861자
+2025-07-27 15:05:07,698 - INFO - 💾 저장: strategic_page_00052.txt (ce.daejin.ac.kr) - 5369자
+2025-07-27 15:05:07,699 - INFO - 💾 저장: strategic_page_00053.txt (ce.daejin.ac.kr) - 6218자
+2025-07-27 15:05:08,269 - INFO - 💾 저장: strategic_page_00054.txt (ce.daejin.ac.kr) - 6466자
+2025-07-27 15:05:13,436 - INFO - 💾 저장: strategic_page_00055.txt (ce.daejin.ac.kr) - 5651자
+2025-07-27 15:05:13,511 - INFO - 💾 저장: strategic_page_00056.txt (ce.daejin.ac.kr) - 5198자
+2025-07-27 15:05:13,516 - INFO - 💾 저장: strategic_page_00057.txt (ce.daejin.ac.kr) - 5760자
+2025-07-27 15:05:18,676 - INFO - 💾 저장: strategic_page_00058.txt (ce.daejin.ac.kr) - 5651자
+2025-07-27 15:05:18,717 - INFO - 💾 저장: strategic_page_00059.txt (ce.daejin.ac.kr) - 5198자
+2025-07-27 15:05:18,727 - INFO - 💾 저장: strategic_page_00060.txt (ce.daejin.ac.kr) - 5604자
+2025-07-27 15:05:19,730 - INFO - ✅ 전략적 크롤링 완료
+2025-07-27 15:05:19,731 - INFO - 📊 총 수집: 61개 페이지
+2025-07-27 15:05:19,731 - INFO - 🌐 도메인별 통계: {'www.daejin.ac.kr': 48, 'ce.daejin.ac.kr': 13}

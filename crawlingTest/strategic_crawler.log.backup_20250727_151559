@@ -1,0 +1,170 @@
+2025-07-27 15:11:00,811 - INFO - 🔍 기존 크롤링 데이터 로드 중...
+2025-07-27 15:11:01,088 - INFO - ✅ 기존 URL 5,118개 로드 완료
+2025-07-27 15:11:01,089 - INFO - 🚀 전략적 보완 크롤링 시작
+2025-07-27 15:11:01,089 - INFO - 📊 기존 URL: 5,118개
+2025-07-27 15:11:01,089 - INFO - 🎯 우선순위 타겟: 57개
+2025-07-27 15:11:02,585 - ERROR - Selenium 크롤링 오류 https://history.daejin.ac.kr/: Message: unknown error: cannot determine loading status
+from unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=138.0.7204.169)
+Stacktrace:
+0   chromedriver                        0x0000000103467570 cxxbridge1$str$ptr + 2731064
+1   chromedriver                        0x000000010345f468 cxxbridge1$str$ptr + 2698032
+2   chromedriver                        0x0000000102fae3f8 cxxbridge1$string$len + 90664
+3   chromedriver                        0x0000000102fa6828 cxxbridge1$string$len + 58968
+4   chromedriver                        0x0000000102f99480 cxxbridge1$string$len + 4784
+5   chromedriver                        0x0000000102f9ae84 cxxbridge1$string$len + 11444
+6   chromedriver                        0x0000000102f998d4 cxxbridge1$string$len + 5892
+7   chromedriver                        0x0000000102f99228 cxxbridge1$string$len + 4184
+8   chromedriver                        0x0000000102f98f74 cxxbridge1$string$len + 3492
+9   chromedriver                        0x0000000102f96d2c chromedriver + 191788
+10  chromedriver                        0x0000000102f978bc chromedriver + 194748
+11  chromedriver                        0x0000000102fbf9ac cxxbridge1$string$len + 161756
+12  chromedriver                        0x0000000102fb6008 cxxbridge1$string$len + 122424
+13  chromedriver                        0x0000000102fb5f08 cxxbridge1$string$len + 122168
+14  chromedriver                        0x0000000102fa58b8 cxxbridge1$string$len + 55016
+15  chromedriver                        0x0000000102fa5e50 cxxbridge1$string$len + 56448
+16  chromedriver                        0x0000000102f99314 cxxbridge1$string$len + 4420
+17  chromedriver                        0x0000000102f9a0f4 cxxbridge1$string$len + 7972
+18  chromedriver                        0x0000000102f99818 cxxbridge1$string$len + 5704
+19  chromedriver                        0x0000000102f99228 cxxbridge1$string$len + 4184
+20  chromedriver                        0x0000000102f98f74 cxxbridge1$string$len + 3492
+21  chromedriver                        0x0000000102f96d2c chromedriver + 191788
+22  chromedriver                        0x0000000102f97788 chromedriver + 194440
+23  chromedriver                        0x0000000102fb145c cxxbridge1$string$len + 103052
+24  chromedriver                        0x0000000103037590 cxxbridge1$string$len + 652224
+25  chromedriver                        0x0000000103036b1c cxxbridge1$string$len + 649548
+26  chromedriver                        0x0000000102fe9a0c cxxbridge1$string$len + 333884
+27  chromedriver                        0x000000010342a5f4 cxxbridge1$str$ptr + 2481340
+28  chromedriver                        0x000000010342d85c cxxbridge1$str$ptr + 2494244
+29  chromedriver                        0x000000010340b248 cxxbridge1$str$ptr + 2353424
+30  chromedriver                        0x000000010342e118 cxxbridge1$str$ptr + 2496480
+31  chromedriver                        0x00000001033fc2f8 cxxbridge1$str$ptr + 2292160
+32  chromedriver                        0x000000010344e00c cxxbridge1$str$ptr + 2627284
+33  chromedriver                        0x000000010344e198 cxxbridge1$str$ptr + 2627680
+34  chromedriver                        0x000000010345f0a4 cxxbridge1$str$ptr + 2697068
+35  libsystem_pthread.dylib             0x00000001915c2c0c _pthread_start + 136
+36  libsystem_pthread.dylib             0x00000001915bdb80 thread_start + 8
+
+2025-07-27 15:11:04,696 - INFO - 💾 저장: strategic_page_00000.txt (security.daejin.ac.kr) - 4212자
+2025-07-27 15:11:06,187 - INFO - 💾 저장: strategic_page_00001.txt (ie.daejin.ac.kr) - 3410자
+2025-07-27 15:11:06,428 - INFO - 💾 저장: strategic_page_00002.txt (www.daejin.ac.kr) - 6462자
+2025-07-27 15:11:06,528 - INFO - 💾 저장: strategic_page_00003.txt (cpe.daejin.ac.kr) - 4287자
+2025-07-27 15:11:06,730 - INFO - 💾 저장: strategic_page_00004.txt (liberal.daejin.ac.kr) - 4212자
+2025-07-27 15:11:09,522 - INFO - 💾 저장: strategic_page_00005.txt (www.daejin.ac.kr) - 15963자
+2025-07-27 15:11:13,465 - INFO - 💾 저장: strategic_page_00006.txt (ce.daejin.ac.kr) - 3635자
+2025-07-27 15:11:13,585 - INFO - 💾 저장: strategic_page_00007.txt (sm.daejin.ac.kr) - 2752자
+2025-07-27 15:11:15,008 - INFO - 💾 저장: strategic_page_00008.txt (sports.daejin.ac.kr) - 3668자
+2025-07-27 15:11:15,036 - INFO - 💾 저장: strategic_page_00009.txt (www.daejin.ac.kr) - 5568자
+2025-07-27 15:11:15,086 - INFO - 💾 저장: strategic_page_00010.txt (pai.daejin.ac.kr) - 3312자
+2025-07-27 15:11:15,296 - INFO - 💾 저장: strategic_page_00011.txt (www.daejin.ac.kr) - 6629자
+2025-07-27 15:11:15,375 - INFO - 💾 저장: strategic_page_00012.txt (www.daejin.ac.kr) - 5286자
+2025-07-27 15:11:15,887 - INFO - 💾 저장: strategic_page_00013.txt (www.daejin.ac.kr) - 15963자
+2025-07-27 15:11:19,982 - INFO - 💾 저장: strategic_page_00014.txt (health.daejin.ac.kr) - 4323자
+2025-07-27 15:11:21,209 - INFO - 💾 저장: strategic_page_00015.txt (hcc.daejin.ac.kr) - 2892자
+2025-07-27 15:11:21,291 - INFO - 💾 저장: strategic_page_00016.txt (eng.daejin.ac.kr) - 3212자
+2025-07-27 15:11:21,319 - INFO - 💾 저장: strategic_page_00017.txt (counseling.daejin.ac.kr) - 1360자
+2025-07-27 15:11:21,327 - INFO - 💾 저장: strategic_page_00018.txt (nurse.daejin.ac.kr) - 3573자
+2025-07-27 15:11:21,373 - INFO - 💾 저장: strategic_page_00019.txt (aidata.daejin.ac.kr) - 3081자
+2025-07-27 15:11:21,521 - INFO - 💾 저장: strategic_page_00020.txt (www.daejin.ac.kr) - 5463자
+2025-07-27 15:11:32,820 - ERROR - Selenium 크롤링 오류 https://library.daejin.ac.kr/main_main.mir: Message: timeout: Timed out receiving message from renderer: 14.776
+  (Session info: chrome=138.0.7204.169)
+Stacktrace:
+0   chromedriver                        0x0000000100d63570 cxxbridge1$str$ptr + 2731064
+1   chromedriver                        0x0000000100d5b468 cxxbridge1$str$ptr + 2698032
+2   chromedriver                        0x00000001008aa3f8 cxxbridge1$string$len + 90664
+3   chromedriver                        0x00000001008951fc cxxbridge1$string$len + 4140
+4   chromedriver                        0x0000000100894f74 cxxbridge1$string$len + 3492
+5   chromedriver                        0x0000000100892d2c chromedriver + 191788
+6   chromedriver                        0x00000001008938bc chromedriver + 194748
+7   chromedriver                        0x00000001008a0afc cxxbridge1$string$len + 51500
+8   chromedriver                        0x00000001008b6a18 cxxbridge1$string$len + 141384
+9   chromedriver                        0x0000000100893f18 chromedriver + 196376
+10  chromedriver                        0x00000001008b6820 cxxbridge1$string$len + 140880
+11  chromedriver                        0x0000000100932dbc cxxbridge1$string$len + 650220
+12  chromedriver                        0x00000001008e5a0c cxxbridge1$string$len + 333884
+13  chromedriver                        0x0000000100d265f4 cxxbridge1$str$ptr + 2481340
+14  chromedriver                        0x0000000100d2985c cxxbridge1$str$ptr + 2494244
+15  chromedriver                        0x0000000100d07248 cxxbridge1$str$ptr + 2353424
+16  chromedriver                        0x0000000100d2a118 cxxbridge1$str$ptr + 2496480
+17  chromedriver                        0x0000000100cf82f8 cxxbridge1$str$ptr + 2292160
+18  chromedriver                        0x0000000100d4a00c cxxbridge1$str$ptr + 2627284
+19  chromedriver                        0x0000000100d4a198 cxxbridge1$str$ptr + 2627680
+20  chromedriver                        0x0000000100d5b0a4 cxxbridge1$str$ptr + 2697068
+21  libsystem_pthread.dylib             0x00000001915c2c0c _pthread_start + 136
+22  libsystem_pthread.dylib             0x00000001915bdb80 thread_start + 8
+
+2025-07-27 15:11:37,002 - INFO - 💾 저장: strategic_page_00021.txt (dormitory.daejin.ac.kr) - 1787자
+2025-07-27 15:11:37,099 - INFO - 💾 저장: strategic_page_00022.txt (admission.daejin.ac.kr) - 547자
+2025-07-27 15:11:38,383 - INFO - 💾 저장: strategic_page_00023.txt (www.daejin.ac.kr) - 5644자
+2025-07-27 15:11:38,758 - INFO - 💾 저장: strategic_page_00024.txt (nurse.daejin.ac.kr) - 409자
+2025-07-27 15:11:38,990 - INFO - 💾 저장: strategic_page_00025.txt (www.daejin.ac.kr) - 5490자
+2025-07-27 15:11:38,997 - INFO - 💾 저장: strategic_page_00026.txt (www.daejin.ac.kr) - 5370자
+2025-07-27 15:11:39,056 - INFO - 💾 저장: strategic_page_00027.txt (www.daejin.ac.kr) - 8238자
+2025-07-27 15:11:39,069 - INFO - 💾 저장: strategic_page_00028.txt (www.daejin.ac.kr) - 6107자
+2025-07-27 15:11:43,877 - INFO - 💾 저장: strategic_page_00029.txt (www.daejin.ac.kr) - 6466자
+2025-07-27 15:11:44,316 - INFO - 💾 저장: strategic_page_00030.txt (dormitory.daejin.ac.kr) - 1269자
+2025-07-27 15:11:44,968 - INFO - 💾 저장: strategic_page_00031.txt (www.daejin.ac.kr) - 6075자
+2025-07-27 15:11:45,042 - INFO - 💾 저장: strategic_page_00032.txt (www.daejin.ac.kr) - 5360자
+2025-07-27 15:11:45,046 - INFO - 💾 저장: strategic_page_00033.txt (www.daejin.ac.kr) - 5284자
+2025-07-27 15:11:45,224 - INFO - 💾 저장: strategic_page_00034.txt (www.daejin.ac.kr) - 12014자
+2025-07-27 15:11:45,286 - INFO - 💾 저장: strategic_page_00035.txt (www.daejin.ac.kr) - 5697자
+2025-07-27 15:11:45,360 - INFO - 💾 저장: strategic_page_00036.txt (www.daejin.ac.kr) - 5663자
+2025-07-27 15:11:50,063 - INFO - 💾 저장: strategic_page_00037.txt (www.daejin.ac.kr) - 5573자
+2025-07-27 15:11:50,587 - INFO - 💾 저장: strategic_page_00038.txt (dormitory.daejin.ac.kr) - 1269자
+2025-07-27 15:11:51,109 - INFO - 💾 저장: strategic_page_00039.txt (www.daejin.ac.kr) - 5574자
+2025-07-27 15:11:51,130 - INFO - 💾 저장: strategic_page_00040.txt (www.daejin.ac.kr) - 5402자
+2025-07-27 15:11:51,508 - INFO - 💾 저장: strategic_page_00041.txt (www.daejin.ac.kr) - 6587자
+2025-07-27 15:11:51,588 - INFO - 💾 저장: strategic_page_00042.txt (www.daejin.ac.kr) - 5391자
+2025-07-27 15:11:51,593 - INFO - 💾 저장: strategic_page_00043.txt (www.daejin.ac.kr) - 5479자
+2025-07-27 15:11:51,593 - INFO - 💾 저장: strategic_page_00044.txt (www.daejin.ac.kr) - 5198자
+2025-07-27 15:11:56,335 - INFO - 💾 저장: strategic_page_00045.txt (www.daejin.ac.kr) - 5604자
+2025-07-27 15:11:58,041 - INFO - 💾 저장: strategic_page_00046.txt (www.daejin.ac.kr) - 5167자
+2025-07-27 15:11:58,042 - INFO - 💾 저장: strategic_page_00047.txt (www.daejin.ac.kr) - 6460자
+2025-07-27 15:11:58,042 - INFO - 💾 저장: strategic_page_00048.txt (www.daejin.ac.kr) - 5729자
+2025-07-27 15:11:58,042 - INFO - 💾 저장: strategic_page_00049.txt (www.daejin.ac.kr) - 5927자
+2025-07-27 15:11:58,054 - INFO - 💾 저장: strategic_page_00050.txt (www.daejin.ac.kr) - 5597자
+2025-07-27 15:11:58,077 - INFO - 💾 저장: strategic_page_00051.txt (www.daejin.ac.kr) - 5369자
+2025-07-27 15:11:58,142 - INFO - 💾 저장: strategic_page_00052.txt (www.daejin.ac.kr) - 6218자
+2025-07-27 15:12:04,043 - INFO - 💾 저장: strategic_page_00053.txt (www.daejin.ac.kr) - 5651자
+2025-07-27 15:12:04,047 - INFO - 💾 저장: strategic_page_00054.txt (www.daejin.ac.kr) - 5460자
+2025-07-27 15:12:04,047 - INFO - 💾 저장: strategic_page_00055.txt (www.daejin.ac.kr) - 5849자
+2025-07-27 15:12:04,060 - INFO - 💾 저장: strategic_page_00056.txt (www.daejin.ac.kr) - 6135자
+2025-07-27 15:12:04,117 - INFO - 💾 저장: strategic_page_00057.txt (www.daejin.ac.kr) - 7505자
+2025-07-27 15:12:04,128 - INFO - 💾 저장: strategic_page_00058.txt (www.daejin.ac.kr) - 5239자
+2025-07-27 15:12:04,494 - INFO - 💾 저장: strategic_page_00059.txt (www.daejin.ac.kr) - 5207자
+2025-07-27 15:12:04,763 - INFO - 💾 저장: strategic_page_00060.txt (www.daejin.ac.kr) - 6157자
+2025-07-27 15:12:10,693 - INFO - 💾 저장: strategic_page_00061.txt (www.daejin.ac.kr) - 5317자
+2025-07-27 15:12:10,701 - INFO - 💾 저장: strategic_page_00062.txt (www.daejin.ac.kr) - 5553자
+2025-07-27 15:12:10,701 - INFO - 💾 저장: strategic_page_00063.txt (www.daejin.ac.kr) - 5175자
+2025-07-27 15:12:10,702 - INFO - 💾 저장: strategic_page_00064.txt (www.daejin.ac.kr) - 5861자
+2025-07-27 15:12:10,704 - INFO - 💾 저장: strategic_page_00065.txt (www.daejin.ac.kr) - 5831자
+2025-07-27 15:12:10,776 - INFO - 💾 저장: strategic_page_00066.txt (www.daejin.ac.kr) - 5760자
+2025-07-27 15:12:10,804 - INFO - 💾 저장: strategic_page_00067.txt (www.daejin.ac.kr) - 5578자
+2025-07-27 15:12:10,804 - INFO - 💾 저장: strategic_page_00068.txt (www.daejin.ac.kr) - 5573자
+2025-07-27 15:12:14,890 - INFO - 💾 저장: strategic_page_00069.txt (www.daejin.ac.kr) - 165자
+2025-07-27 15:12:14,985 - INFO - 💾 저장: strategic_page_00070.txt (www.daejin.ac.kr) - 285자
+2025-07-27 15:12:16,391 - INFO - 💾 저장: strategic_page_00071.txt (www.daejin.ac.kr) - 5211자
+2025-07-27 15:12:16,395 - INFO - 💾 저장: strategic_page_00072.txt (www.daejin.ac.kr) - 5829자
+2025-07-27 15:12:16,488 - INFO - 💾 저장: strategic_page_00073.txt (www.daejin.ac.kr) - 5733자
+2025-07-27 15:12:16,488 - INFO - 💾 저장: strategic_page_00074.txt (www.daejin.ac.kr) - 5687자
+2025-07-27 15:12:16,608 - INFO - 💾 저장: strategic_page_00075.txt (www.daejin.ac.kr) - 5747자
+2025-07-27 15:12:17,107 - INFO - 💾 저장: strategic_page_00076.txt (www.daejin.ac.kr) - 5546자
+2025-07-27 15:12:21,385 - INFO - 💾 저장: strategic_page_00077.txt (www.daejin.ac.kr) - 634자
+2025-07-27 15:12:21,637 - INFO - 💾 저장: strategic_page_00078.txt (www.daejin.ac.kr) - 220자
+2025-07-27 15:12:21,657 - INFO - 💾 저장: strategic_page_00079.txt (www.daejin.ac.kr) - 617자
+2025-07-27 15:12:21,678 - INFO - 💾 저장: strategic_page_00080.txt (www.daejin.ac.kr) - 1631자
+2025-07-27 15:12:21,679 - INFO - 💾 저장: strategic_page_00081.txt (www.daejin.ac.kr) - 914자
+2025-07-27 15:12:21,686 - INFO - 💾 저장: strategic_page_00082.txt (www.daejin.ac.kr) - 824자
+2025-07-27 15:12:21,692 - INFO - 💾 저장: strategic_page_00083.txt (www.daejin.ac.kr) - 1584자
+2025-07-27 15:12:21,741 - INFO - 💾 저장: strategic_page_00084.txt (www.daejin.ac.kr) - 884자
+2025-07-27 15:12:25,991 - INFO - 💾 저장: strategic_page_00085.txt (www.daejin.ac.kr) - 245자
+2025-07-27 15:12:26,021 - INFO - 💾 저장: strategic_page_00086.txt (www.daejin.ac.kr) - 165자
+2025-07-27 15:12:26,037 - INFO - 💾 저장: strategic_page_00087.txt (www.daejin.ac.kr) - 174자
+2025-07-27 15:12:26,043 - INFO - 💾 저장: strategic_page_00088.txt (www.daejin.ac.kr) - 165자
+2025-07-27 15:12:26,061 - INFO - 💾 저장: strategic_page_00089.txt (www.daejin.ac.kr) - 165자
+2025-07-27 15:12:26,076 - INFO - 💾 저장: strategic_page_00090.txt (www.daejin.ac.kr) - 178자
+2025-07-27 15:12:26,082 - INFO - 💾 저장: strategic_page_00091.txt (www.daejin.ac.kr) - 170자
+2025-07-27 15:12:26,109 - INFO - 💾 저장: strategic_page_00092.txt (www.daejin.ac.kr) - 189자
+2025-07-27 15:12:27,114 - INFO - ✅ 전략적 크롤링 완료
+2025-07-27 15:12:27,115 - INFO - 📊 총 수집: 93개 페이지
+2025-07-27 15:12:27,115 - INFO - 🌐 도메인별 통계: {'security.daejin.ac.kr': 1, 'ie.daejin.ac.kr': 1, 'www.daejin.ac.kr': 74, 'cpe.daejin.ac.kr': 1, 'liberal.daejin.ac.kr': 1, 'ce.daejin.ac.kr': 1, 'sm.daejin.ac.kr': 1, 'sports.daejin.ac.kr': 1, 'pai.daejin.ac.kr': 1, 'health.daejin.ac.kr': 1, 'hcc.daejin.ac.kr': 1, 'eng.daejin.ac.kr': 1, 'counseling.daejin.ac.kr': 1, 'nurse.daejin.ac.kr': 2, 'aidata.daejin.ac.kr': 1, 'dormitory.daejin.ac.kr': 3, 'admission.daejin.ac.kr': 1}

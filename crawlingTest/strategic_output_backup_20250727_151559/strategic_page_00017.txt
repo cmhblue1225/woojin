@@ -1,0 +1,62 @@
+[URL] https://counseling.daejin.ac.kr/
+[DEPTH] 2
+[DOMAIN] counseling.daejin.ac.kr
+[TIMESTAMP] 2025-07-27T15:11:21.319334
+[LENGTH] 1360
+
+대진대학교 학생생활상담센터
+바로가기 메뉴
+본문 바로가기
+주메뉴 바로가기
+/WEB-INF/jsp/k2web/com/cop/site/layout.jsp
+counseling_JW_MS_K2WT001_M
+fnctId=imageSlide,fnctNo=380
+비주얼(2 개)
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+imageSlideSetupSeq=380,cnvrsVe=1,stopTime=5,pcCo=1,cnvrsMth=FADEIN,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+Student Life Counseling Center 학생생활상담센터 여러분의 마음을 찾아가는 대진인의 心터 학생생활상담센터
+학생생활상담센터 소개
+fnctId=bbs,fnctNo=1763
+알립니다.
+사용중지된 싱글 모듈 입니다.
+Quick Menu
+fnctId=imageSlide,fnctNo=382
+퀵메뉴(3 개)
+개인상담신청
+개인상담신청
+집단상담신청
+집단상담신청
+심리검사
+심리검사
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+imageSlideSetupSeq=382,cnvrsVe=1,stopTime=5,pcCo=6,cnvrsMth=SLIDE,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+fnctId=recentBbs,fnctNo=205
+공지사항
+[학생생활상담센터] 또래상담자 드림캐쳐단 모집안내
+2025.07.11
+마음이 힘들 때, 혼자 고민하지 마세요.
+지금 힘든 마음으로 어려움을 겪고 있다면, 누구든 24시간 도움받을 수 있는 긴급 상담 창구가 있습니다. 한 번의 전화, 한 줄의 메시지로도 충분합니다. ☎ 자살예방 상담전화 10
+2025.07.09
+[학생생활상담센터] 틈:틈 슬쩍 엿보기
+2025.06.25
+느린 마음의 기록, 너에게 ON (느린우체통)
+느린 우체통 이 열렸습니다!지금, 당신의 마음은 어떤가요?마음을 천천히 꾹 눌러 적어보는 이 편지는2026년 2월, 당신에게 도착할 거예요.빠른 것을 추구하는 세상 속에서잠시 멈
+2025.05.29
+더보기READ MORE
+자료실
+2022학년도 대진대학교 학생생활상담센터 위기극복사례집 발간
+2023.02.01
+21년 위기극복 사례 및 학생생활상담센터 프로그램 이용 후기 공모 사례집 발간 안내
+2022.03.29
+더보기READ MORE
+학생생활상담센터 안내/ 업무시간
+학생생활상담센터 안내
+· Tel : 031-539-1298~9 · 위치 : 정보전산원 402호 · 업무시간 · 평일 : 09:00~17:00 · 방학중 : 10:00~16:00 · 토,일 공휴일 휴무
+더보기
+TOP

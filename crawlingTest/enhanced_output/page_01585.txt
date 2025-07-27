@@ -1,0 +1,5 @@
+[URL] https://intlbusiness.daejin.ac.kr/happydj/4946/subview.do\n[DEPTH] 5\n[DOMAIN] intlbusiness.daejin.ac.kr\n[TIMESTAMP] 2025-07-27T13:52:02.343212\n[LENGTH] 370\n\n행사 일정\n총학생회\n구성원의 자긍심이 넘치는 행복한 대학\n인쇄하기\n즐겨찾기\n즐겨찾는 메뉴\n초기화\n/WEB-INF/jsp/k2web/com/cop/site/layout.jsp\nhappydj_JW_MS_K2WT001_S\n2024\n01월\n02월\n03월\n04월\n05월\n06월\n07월\n08월\n09월\n10월\n11월\n12월\n2026\nJuly\n07월
+                
+                
+            
+            캘린더 - 일, 월, 화, 수, 목, 금, 토\n학사일정 내용을 일자에 따라 안내합니다.\n일정 데이터가 없습니다.\n상기 일정은 학교 사정에 의해 변동될 수 있습니다.\nTOP

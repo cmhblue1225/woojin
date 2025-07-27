@@ -1,0 +1,65 @@
+[URL] https://djss.daejin.ac.kr/
+[DEPTH] 0
+[DOMAIN] djss.daejin.ac.kr
+[TIMESTAMP] 2025-07-27T15:16:05.610597
+[LENGTH] 1069
+
+대진대학교 대진지역상생센터
+바로가기 메뉴
+본문 바로가기
+주메뉴 바로가기
+/WEB-INF/jsp/k2web/com/cop/site/layout.jsp
+djss_JW_MS_K2WT001_M
+fnctId=imageSlide,fnctNo=350
+비주얼(2 개)
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+imageSlideSetupSeq=350,cnvrsVe=1,stopTime=5,pcCo=1,cnvrsMth=FADEIN,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+Daejin Regional Win-Win Center 대진지역상생센터 상생의 정신으로 글로벌 인재를 육성하는 대
+Quick Menu
+fnctId=imageSlide,fnctNo=352
+퀵메뉴(4 개)
+센터소개
+e-러닝지원
+지역사회기여
+지역사회기여
+산업연계지원
+산업연계지원
+연구인력검색
+연구인력검색
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+imageSlideSetupSeq=352,cnvrsVe=1,stopTime=5,pcCo=6,cnvrsMth=SLIDE,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+fnctId=recentBbs,fnctNo=197
+상생센터공지
+최근게시물이(가) 없습니다.
+더보기READ MORE
+fnctId=imageSlide,fnctNo=351
+배너존(8 개)
+BANNER ZONE
+슬라이드 재생
+슬라이드 정지
+이전 슬라이드
+다음 슬라이드
+대학정보공시
+대학정보공시
+대진대신문사
+대진대신문사
+발전기금
+발전기금
+학생생활상담센터
+학생생활상담센터
+E-LEARNING
+E-LEARNING
+T-WIN
+T-WIN
+교육방송국
+교육방송국
+인터넷증명서발급
+인터넷증명서발급
+imageSlideSetupSeq=351,cnvrsVe=1,stopTime=5,pcCo=8,cnvrsMth=SLIDE,pcMgWidth=100,isImageNoHandlr=true,isCnvrsHandlr=true,isPlayStopHandlr=true
+TOP

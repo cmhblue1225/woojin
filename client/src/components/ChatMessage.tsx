@@ -28,6 +28,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 
   const formatText = (text: string) => {
     // 간단한 마크다운 스타일 처리
+    if (!text) return '';
     return text
       .split('\n')
       .map((line, index) => (
@@ -36,7 +37,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           variant="body2"
           component="div"
           sx={{
-            mb: index < text.split('\n').length - 1 ? 1 : 0,
+            mb: index < (text?.split('\n').length || 0) - 1 ? 1 : 0,
             fontWeight: line.startsWith('**') && line.endsWith('**') ? 'bold' : 'normal',
           }}
         >

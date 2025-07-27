@@ -1,0 +1,1 @@
+[URL] https://ctl.daejin.ac.kr/ctl/4122/subview.do\n[DEPTH] 5\n[DOMAIN] ctl.daejin.ac.kr\n[TIMESTAMP] 2025-07-27T13:16:29.943081\n[LENGTH] 221\n\n자기주도학습준비도 검사\n교수지원\n자료실\n학습지원\n구성원의 자긍심이 넘치는 행복한 대학\n인쇄하기\n즐겨찾기\n즐겨찾는 메뉴\n초기화\n/WEB-INF/jsp/k2web/com/cop/site/layout.jsp\nctl_JW_MS_K2WT001_S\n학교 홈페이지\nT-WIN\n진단센터\n학습유형진단\n자기주도학습 준비도 검사\n문의 연락처\nTel :\n031-539-2288\nTOP

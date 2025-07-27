@@ -1,0 +1,1 @@
+[URL] https://together.daejin.ac.kr:443/myLife/a/m/getMyLife.do\n[DEPTH] 9\n[DOMAIN] together.daejin.ac.kr:443\n[TIMESTAMP] 2025-07-27T14:26:19.004438\n[LENGTH] 62\n\n대진대학교\nLoading\nMy-Life\n학교 생활 관련 공지 및 생활정보 알림\n공지사항\n여물통\n알림톡

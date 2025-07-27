@@ -1,0 +1,1 @@
+[URL] https://food.daejin.ac.kr/food/2379/subview.do\n[DEPTH] 10\n[DOMAIN] food.daejin.ac.kr\n[TIMESTAMP] 2025-07-27T13:40:38.258013\n[LENGTH] 221\n\n학과현황\n교육과정\n학과소개\n구성원의 자긍심이 넘치는 행복한 대학\n인쇄하기\n즐겨찾기\n즐겨찾는 메뉴\n초기화\n/WEB-INF/jsp/k2web/com/cop/site/layout.jsp\nfood_JW_MS_K2WT001_S\n학과현황을(를) 안내하는 표\n외국인 유학생\n1학년\n42명\n19명\n23명\n2학년\n36명\n13명\n3학년\n15명\n37명\n4학년\n29명\nTOP

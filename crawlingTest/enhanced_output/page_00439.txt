@@ -1,0 +1,1 @@
+[URL] https://rotc.daejin.ac.kr/rotc/5421/subview.do\n[DEPTH] 8\n[DOMAIN] rotc.daejin.ac.kr\n[TIMESTAMP] 2025-07-27T13:20:42.308504\n[LENGTH] 182\n\n학군단 마크\nROTC 소개\n학군단 소개\n구성원의 자긍심이 넘치는 행복한 대학\n인쇄하기\n즐겨찾기\n즐겨찾는 메뉴\n초기화\n/WEB-INF/jsp/k2web/com/cop/site/layout.jsp\nrotc_JW_MS_K2WT001_S\n외곽의 방패 : 조국 수호\n다이아몬드 : 장교후보생\n청색 : 젊음\nTOP
