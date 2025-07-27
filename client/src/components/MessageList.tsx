@@ -33,7 +33,12 @@ const MessageItem: React.FC<MessageItemProps> = memo(({ index, style, data }) =>
   const { messages } = data;
   const message = messages[index];
   
-  if (!message) return null;
+  console.log(`[MessageItem] 렌더링 index: ${index}, 메시지:`, message);
+  
+  if (!message) {
+    console.log(`[MessageItem] index ${index}에 메시지가 없음`);
+    return null;
+  }
 
   return (
     <div style={style}>
@@ -133,6 +138,12 @@ const MessageList: React.FC<MessageListProps> = ({
   const listRef = useRef<List>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
+  // props로 받은 messages 확인
+  React.useEffect(() => {
+    console.log('[MessageList] 메시지 props 변경됨. 메시지 수:', messages.length);
+    console.log('[MessageList] 받은 메시지들:', messages);
+  }, [messages]);
+  
   // 가상 스크롤링 설정
   const itemHeight = useMemo(() => (isMobile ? 120 : 140), [isMobile]);
   const overscanCount = 5; // 보이지 않는 영역의 아이템 수
@@ -228,23 +239,34 @@ const MessageList: React.FC<MessageListProps> = ({
         </Box>
       )}
 
-      {/* 메시지 리스트 */}
+      {/* 메시지 리스트 - 임시로 가상 스크롤링 비활성화 */}
       <Box sx={listContainerStyles}>
         {messages.length > 0 ? (
-          <List
-            ref={listRef}
-            height="100%"
-            width="100%"
-            itemCount={messages.length}
-            itemSize={itemHeight}
-            itemData={listData}
-            overscanCount={overscanCount}
-            style={{
-              outline: 'none',
+          <Box
+            sx={{
+              height: '100%',
+              overflowY: 'auto',
+              '&::-webkit-scrollbar': {
+                width: '6px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'transparent',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: 'rgba(59, 130, 246, 0.3)',
+                borderRadius: '3px',
+                '&:hover': {
+                  background: 'rgba(59, 130, 246, 0.5)',
+                },
+              },
             }}
           >
-            {MessageItem}
-          </List>
+            {messages.map((message, index) => (
+              <Box key={message.id} sx={{ px: { xs: 1, md: 2 }, py: 0.5 }}>
+                <ChatMessage message={message} />
+              </Box>
+            ))}
+          </Box>
         ) : (
           // 메시지가 없을 때 표시할 내용
           <Box

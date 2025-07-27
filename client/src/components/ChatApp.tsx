@@ -32,6 +32,12 @@ const ChatApp: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showQuickActions, setShowQuickActions] = useState(true);
   
+  // messages 상태 변경 추적
+  React.useEffect(() => {
+    console.log('[ChatApp] messages 상태 변경됨. 현재 메시지 수:', messages.length);
+    console.log('[ChatApp] 현재 모든 메시지:', messages);
+  }, [messages]);
+  
   // 레퍼런스
   const chatContainerRef = useRef<HTMLDivElement>(null);
   
