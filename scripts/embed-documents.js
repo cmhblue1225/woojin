@@ -84,45 +84,109 @@ class DocumentEmbedder {
         return chunks;
     }
 
-    // 시간표 데이터 처리
+    // 시간표 데이터 처리 (개선된 그룹화 임베딩)
     async processTimetableData() {
         this.log('📊 시간표 데이터 처리 중...');
         const filePath = path.join(__dirname, '../data/timetable.txt');
+        const rawData = [];
         const documents = [];
 
         return new Promise((resolve, reject) => {
             fs.createReadStream(filePath)
                 .pipe(csv())
                 .on('data', (row) => {
-                    // CSV 행을 텍스트로 변환
-                    const content = `과목 정보:
-종류: ${row.Kind}
-과목코드: ${row.code}
-학점: ${row.score}
-과목명: ${row.name}
-교수: ${row.professor}
-요일: ${row.week}
-시작시간: ${row.start_time}
-종료시간: ${row.end_time}`;
-
-                    documents.push({
-                        content,
-                        source_type: 'timetable',
-                        source_file: 'timetable.txt',
-                        metadata: {
-                            subject_code: row.code,
-                            subject_name: row.name,
-                            professor: row.professor,
-                            day: row.week,
-                            start_time: row.start_time,
-                            end_time: row.end_time,
-                            credits: row.score,
-                            type: row.Kind
-                        }
-                    });
+                    rawData.push(row);
                 })
                 .on('end', () => {
-                    this.log(`✅ 시간표 데이터 ${documents.length}개 로드 완료`);
+                    this.log(`📄 원본 데이터 ${rawData.length}개 로드 완료`);
+                    
+                    // 1. 개별 수업 정보 (기존 방식 개선)
+                    rawData.forEach(row => {
+                        const timeText = this.formatTime(row.start_time, row.end_time);
+                        const dayText = this.formatDay(row.week);
+                        const typeText = this.formatSubjectType(row.Kind);
+                        
+                        const content = `${row.professor} 교수님이 담당하시는 "${row.name}" 강의 정보입니다. 
+이 수업은 ${typeText}이며 ${row.score}학점입니다. 
+과목코드는 ${row.code}이고, ${dayText} ${timeText}에 진행됩니다.
+수강 시간: ${row.week}요일 ${row.start_time} - ${row.end_time}`;
+
+                        documents.push({
+                            content,
+                            source_type: 'timetable',
+                            source_file: 'timetable.txt',
+                            metadata: {
+                                subject_code: row.code,
+                                subject_name: row.name,
+                                professor: row.professor,
+                                day: row.week,
+                                start_time: row.start_time,
+                                end_time: row.end_time,
+                                credits: row.score,
+                                type: row.Kind,
+                                embedding_type: 'individual'
+                            }
+                        });
+                    });
+
+                    // 2. 교수별 그룹화
+                    const professorGroups = this.groupByProfessor(rawData);
+                    Object.entries(professorGroups).forEach(([professor, classes]) => {
+                        const content = this.createProfessorSummary(professor, classes);
+                        documents.push({
+                            content,
+                            source_type: 'timetable',
+                            source_file: 'timetable.txt',
+                            metadata: {
+                                professor,
+                                class_count: classes.length,
+                                embedding_type: 'professor_group'
+                            }
+                        });
+                    });
+
+                    // 3. 과목별 그룹화
+                    const subjectGroups = this.groupBySubject(rawData);
+                    Object.entries(subjectGroups).forEach(([subject, classes]) => {
+                        if (classes.length > 1) { // 여러 분반이 있는 과목만
+                            const content = this.createSubjectSummary(subject, classes);
+                            documents.push({
+                                content,
+                                source_type: 'timetable',
+                                source_file: 'timetable.txt',
+                                metadata: {
+                                    subject_name: subject,
+                                    section_count: classes.length,
+                                    embedding_type: 'subject_group'
+                                }
+                            });
+                        }
+                    });
+
+                    // 4. 시간대별 그룹화
+                    const timeGroups = this.groupByTimeSlot(rawData);
+                    Object.entries(timeGroups).forEach(([timeSlot, classes]) => {
+                        if (classes.length > 3) { // 3개 이상 수업이 있는 시간대만
+                            const content = this.createTimeSlotSummary(timeSlot, classes);
+                            documents.push({
+                                content,
+                                source_type: 'timetable',
+                                source_file: 'timetable.txt',
+                                metadata: {
+                                    time_slot: timeSlot,
+                                    class_count: classes.length,
+                                    embedding_type: 'time_group'
+                                }
+                            });
+                        }
+                    });
+
+                    this.log(`✅ 시간표 데이터 처리 완료: 총 ${documents.length}개 문서 생성`);
+                    this.log(`   - 개별 수업: ${rawData.length}개`);
+                    this.log(`   - 교수별 그룹: ${Object.keys(professorGroups).length}개`);
+                    this.log(`   - 과목별 그룹: ${Object.keys(subjectGroups).filter(([,classes]) => classes.length > 1).length}개`);
+                    this.log(`   - 시간대별 그룹: ${Object.keys(timeGroups).filter(([,classes]) => classes.length > 3).length}개`);
+                    
                     resolve(documents);
                 })
                 .on('error', reject);
@@ -230,6 +294,150 @@ class DocumentEmbedder {
         }
 
         return processed;
+    }
+
+    // 시간 포맷팅 헬퍼 (오류 방지 개선)
+    formatTime(startTime, endTime) {
+        const formatHour = (time) => {
+            if (!time || typeof time !== 'string') return '시간 미정';
+            
+            const parts = time.split(':');
+            if (parts.length < 2) return time;
+            
+            const [hour, minute] = parts;
+            const h = parseInt(hour);
+            if (isNaN(h)) return time;
+            
+            const period = h < 12 ? '오전' : '오후';
+            const displayHour = h === 0 ? 12 : h > 12 ? h - 12 : h;
+            return `${period} ${displayHour}시${minute === '00' ? '' : ` ${minute}분`}`;
+        };
+        
+        if (!startTime || !endTime) {
+            return '시간 미정';
+        }
+        
+        return `${formatHour(startTime)}부터 ${formatHour(endTime)}까지`;
+    }
+
+    // 요일 포맷팅 헬퍼
+    formatDay(day) {
+        const dayMap = {
+            '월': '월요일',
+            '화': '화요일', 
+            '수': '수요일',
+            '목': '목요일',
+            '금': '금요일',
+            '토': '토요일',
+            '일': '일요일'
+        };
+        return dayMap[day] || day + '요일';
+    }
+
+    // 과목 종류 포맷팅 헬퍼
+    formatSubjectType(type) {
+        const typeMap = {
+            '교필': '교양필수 과목',
+            '교선': '교양선택 과목',
+            '전기': '전공기초 과목',
+            '전필': '전공필수 과목',
+            '전선': '전공선택 과목',
+            '일선': '일반선택 과목',
+            '복전': '복수전공 과목',
+            '부전': '부전공 과목',
+            '마전': '마이크로전공 과목'
+        };
+        return typeMap[type] || type;
+    }
+
+    // 교수별 그룹화
+    groupByProfessor(data) {
+        const groups = {};
+        data.forEach(row => {
+            if (!groups[row.professor]) {
+                groups[row.professor] = [];
+            }
+            groups[row.professor].push(row);
+        });
+        return groups;
+    }
+
+    // 과목별 그룹화 
+    groupBySubject(data) {
+        const groups = {};
+        data.forEach(row => {
+            if (!groups[row.name]) {
+                groups[row.name] = [];
+            }
+            groups[row.name].push(row);
+        });
+        return groups;
+    }
+
+    // 시간대별 그룹화
+    groupByTimeSlot(data) {
+        const groups = {};
+        data.forEach(row => {
+            const timeSlot = `${row.week}_${row.start_time}`;
+            if (!groups[timeSlot]) {
+                groups[timeSlot] = [];
+            }
+            groups[timeSlot].push(row);
+        });
+        return groups;
+    }
+
+    // 교수별 요약 생성
+    createProfessorSummary(professor, classes) {
+        const subjects = [...new Set(classes.map(c => c.name))];
+        const schedules = classes.map(c => `${this.formatDay(c.week)} ${this.formatTime(c.start_time, c.end_time)}`);
+        const types = [...new Set(classes.map(c => this.formatSubjectType(c.Kind)))];
+        
+        return `${professor} 교수님이 담당하시는 강의 목록입니다.
+
+담당 과목: ${subjects.join(', ')}
+총 ${classes.length}개 분반을 담당하고 계십니다.
+과목 유형: ${types.join(', ')}
+
+세부 시간표:
+${classes.map(c => `- ${c.name} (${c.code}): ${this.formatDay(c.week)} ${this.formatTime(c.start_time, c.end_time)}, ${c.score}학점`).join('\n')}
+
+${professor} 교수님의 수업을 듣고 싶으시면 위 시간표를 참고하세요.`;
+    }
+
+    // 과목별 요약 생성
+    createSubjectSummary(subject, classes) {
+        const professors = [...new Set(classes.map(c => c.professor))];
+        const schedules = classes.map(c => `${c.professor} 교수님 - ${this.formatDay(c.week)} ${this.formatTime(c.start_time, c.end_time)}`);
+        const credits = classes[0].score;
+        const type = this.formatSubjectType(classes[0].Kind);
+        
+        return `"${subject}" 과목의 분반 정보입니다.
+
+이 과목은 ${type}이며 ${credits}학점입니다.
+총 ${classes.length}개 분반이 개설되어 있습니다.
+담당 교수: ${professors.join(', ')}
+
+분반별 시간표:
+${classes.map(c => `- ${c.code}: ${c.professor} 교수님, ${this.formatDay(c.week)} ${this.formatTime(c.start_time, c.end_time)}`).join('\n')}
+
+${subject} 수업을 수강하고 싶으시면 원하는 시간대의 분반을 선택하세요.`;
+    }
+
+    // 시간대별 요약 생성
+    createTimeSlotSummary(timeSlot, classes) {
+        const [day, time] = timeSlot.split('_');
+        const dayText = this.formatDay(day);
+        const timeText = this.formatTime(time, classes[0].end_time);
+        const subjects = classes.map(c => `${c.name} (${c.professor} 교수님)`);
+        
+        return `${dayText} ${timeText} 시간대에 개설된 강의 목록입니다.
+
+이 시간에는 총 ${classes.length}개의 강의가 진행됩니다:
+${subjects.map((subject, index) => `${index + 1}. ${subject}`).join('\n')}
+
+${dayText} ${timeText}에 수업이 있는지 확인하고 싶으시면 위 목록을 참고하세요.
+시간표 중복을 피하려면 이 시간대의 다른 강의들을 확인해보세요.`;
     }
 
     // 메인 실행 함수

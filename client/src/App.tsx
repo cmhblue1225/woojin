@@ -1,63 +1,81 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Container, AppBar, Toolbar, Typography, Box } from '@mui/material';
+import { CssBaseline, Box, Container, Typography, Paper, Fade, useMediaQuery } from '@mui/material';
 import ChatInterface from './components/ChatInterface';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import LoadingScreen from './components/LoadingScreen';
 import './App.css';
 
+// 대진대학교 테마 설정
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#4285f4',
-      light: '#7baaf7',
-      dark: '#2e5ce6',
+      main: '#3B82F6', // 대진대 블루
+      light: '#60A5FA',
+      dark: '#1E40AF',
     },
     secondary: {
-      main: '#34a853',
-      light: '#81c784',
-      dark: '#2e7d32',
+      main: '#10B981', // 에메랄드 그린
+      light: '#34D399',
+      dark: '#059669',
     },
     background: {
-      default: '#f8fafc',
-      paper: '#ffffff',
+      default: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
+      paper: 'rgba(30, 41, 59, 0.8)',
     },
     text: {
-      primary: '#1f2937',
-      secondary: '#6b7280',
+      primary: '#F1F5F9',
+      secondary: '#CBD5E1',
     },
   },
   typography: {
     fontFamily: [
       'Pretendard',
-      'Noto Sans KR',
       '-apple-system',
       'BlinkMacSystemFont',
-      'Segoe UI',
+      'system-ui',
       'Roboto',
-      'sans-serif',
+      'sans-serif'
     ].join(','),
-    h6: {
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+      background: 'linear-gradient(45deg, #3B82F6, #10B981)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+    },
+    h2: {
+      fontSize: '1.8rem',
       fontWeight: 600,
-      fontSize: '1.1rem',
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.6,
     },
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: 16,
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          borderRadius: 8,
-          fontWeight: 500,
-        },
-      },
-    },
     MuiPaper: {
       styleOverrides: {
         root: {
-          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+          backgroundImage: 'none',
+          backgroundColor: 'rgba(30, 41, 59, 0.8)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(59, 130, 246, 0.2)',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          textTransform: 'none',
+          fontWeight: 600,
+          fontSize: '0.95rem',
         },
       },
     },
@@ -65,68 +83,123 @@ const theme = createTheme({
 });
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  useEffect(() => {
+    // 초기 로딩 시뮬레이션
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className="App">
-        <AppBar 
-          position="static" 
-          elevation={0}
+      <Box
+        sx={{
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* 배경 패턴 */}
+        <Box
           sx={{
-            background: 'linear-gradient(135deg, #4285f4 0%, #34a853 100%)',
-            backdropFilter: 'blur(10px)',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `
+              radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)
+            `,
+            animation: 'float 20s ease-in-out infinite',
           }}
-        >
-          <Toolbar sx={{ minHeight: { xs: 56, sm: 64 } }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-              <Typography 
-                variant="h6" 
-                component="div" 
-                sx={{ 
-                  fontWeight: 700,
-                  fontSize: { xs: '1rem', sm: '1.25rem' },
-                  mr: 1,
-                }}
-              >
-                🎓 대진대학교
-              </Typography>
-              <Typography 
-                variant="h6" 
-                component="div" 
-                sx={{ 
-                  fontWeight: 400,
-                  fontSize: { xs: '1rem', sm: '1.25rem' },
-                  opacity: 0.9,
-                }}
-              >
-                우진봇
-              </Typography>
-            </Box>
-            <Typography 
-              variant="caption" 
-              sx={{ 
-                display: { xs: 'none', sm: 'block' },
-                opacity: 0.9,
-                fontSize: '0.875rem',
-              }}
-            >
-              AI 학사정보 도우미
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        />
         
-        <Container 
-          maxWidth="lg" 
-          sx={{ 
-            mt: { xs: 1, sm: 2 }, 
-            mb: { xs: 1, sm: 2 }, 
-            px: { xs: 1, sm: 2 },
-            height: { xs: 'calc(100vh - 60px)', sm: 'calc(100vh - 80px)' },
+        {/* 메인 컨테이너 */}
+        <Container
+          maxWidth="lg"
+          sx={{
+            position: 'relative',
+            zIndex: 1,
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            py: { xs: 2, md: 3 },
           }}
         >
-          <ChatInterface />
+          <Header />
+          
+          <Fade in timeout={1000}>
+            <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              {/* 히어로 섹션 */}
+              <Box
+                sx={{
+                  textAlign: 'center',
+                  mb: { xs: 3, md: 4 },
+                  mt: { xs: 2, md: 3 },
+                }}
+              >
+                <Typography
+                  variant="h1"
+                  sx={{
+                    mb: 2,
+                    fontSize: { xs: '2rem', md: '2.5rem' },
+                  }}
+                >
+                  대진대학교 AI 챗봇 우진이
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: 'text.secondary',
+                    maxWidth: '600px',
+                    mx: 'auto',
+                    mb: 3,
+                    fontSize: { xs: '0.95rem', md: '1.1rem' },
+                  }}
+                >
+                  학사정보, 시간표, 수강신청 등 대학 생활의 모든 궁금한 것들을 물어보세요. 
+                  새롭게 추가된 홈페이지 정보까지 더욱 정확하고 빠르게 답변해드립니다.
+                </Typography>
+              </Box>
+
+              {/* 챗봇 인터페이스 */}
+              <Paper
+                elevation={0}
+                sx={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: { xs: '60vh', md: '65vh' },
+                  maxHeight: { xs: '70vh', md: '75vh' },
+                  mx: { xs: 0, md: 2 },
+                  p: { xs: 2, md: 3 },
+                  background: 'rgba(30, 41, 59, 0.6)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(59, 130, 246, 0.3)',
+                  borderRadius: { xs: 2, md: 3 },
+                }}
+              >
+                <ChatInterface />
+              </Paper>
+            </Box>
+          </Fade>
+
+          <Footer />
         </Container>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }
