@@ -210,7 +210,7 @@ app.post('/api/chat', async (req, res) => {
         }
 
         res.json({
-            message: response,
+            response: response,
             context: documents.map(doc => ({
                 source: doc.source_file,
                 similarity: doc.similarity
