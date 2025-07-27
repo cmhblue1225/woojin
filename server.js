@@ -114,6 +114,10 @@ async function generateResponse(userMessage, context) {
 ${context}`;
 
     try {
+        console.log(`[Claude] API 요청 - 모델: ${process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022'}`);
+        console.log(`[Claude] 시스템 프롬프트 길이: ${systemPrompt.length}자`);
+        console.log(`[Claude] 사용자 메시지: "${userMessage}"`);
+        
         const message = await anthropic.messages.create({
             model: process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022',
             max_tokens: parseInt(process.env.MAX_TOKENS) || 2000,
@@ -126,9 +130,18 @@ ${context}`;
             ]
         });
 
-        return message.content[0].text;
+        console.log(`[Claude] 응답 받음 - 타입: ${typeof message.content}`);
+        console.log(`[Claude] 응답 배열 길이: ${message.content ? message.content.length : 0}`);
+        console.log(`[Claude] 첫 번째 컨텐츠: ${message.content[0] ? typeof message.content[0] : 'undefined'}`);
+        
+        const responseText = message.content[0].text;
+        console.log(`[Claude] 최종 응답 텍스트: "${responseText ? responseText.substring(0, 50) + '...' : 'null'}"`);
+        
+        return responseText;
     } catch (error) {
         console.error('Claude API 오류:', error);
+        console.error('Error details:', error.message);
+        console.error('Error stack:', error.stack);
         throw error;
     }
 }
@@ -184,9 +197,13 @@ app.post('/api/chat', async (req, res) => {
 
         // 컨텍스트 생성
         const context = createContext(documents);
+        console.log(`[컨텍스트 길이] ${context.length}자`);
 
         // Claude로 응답 생성
+        console.log(`[Claude API 호출 시작] 메시지: "${message}"`);
         const response = await generateResponse(message, context);
+        console.log(`[Claude API 응답 완료] 응답 길이: ${response ? response.length : 0}자`);
+        console.log(`[Claude API 응답 내용] ${response ? response.substring(0, 100) + '...' : 'null 응답'}`);
 
         // 채팅 히스토리 저장 (선택적)
         if (sessionId) {
