@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   Box,
   Typography,
@@ -6,11 +6,13 @@ import {
   Chip,
   Paper,
   Tooltip,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SourceIcon from '@mui/icons-material/Source';
-import { Message } from './ChatInterface';
+import { Message } from './ChatApp';
 
 interface ChatMessageProps {
   message: Message;
@@ -18,6 +20,8 @@ interface ChatMessageProps {
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const { text, isUser, timestamp, context } = message;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('ko-KR', {
@@ -37,8 +41,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           variant="body2"
           component="div"
           sx={{
-            mb: index < (text?.split('\n').length || 0) - 1 ? 1 : 0,
-            fontWeight: line.startsWith('**') && line.endsWith('**') ? 'bold' : 'normal',
+            mb: index < (text?.split('\n').length || 0) - 1 ? 0.5 : 0,
+            fontWeight: line.startsWith('**') && line.endsWith('**') ? 600 : 400,
+            fontSize: { xs: '0.85rem', md: '0.9rem' },
+            lineHeight: 1.5,
+            color: isUser ? 'white' : 'text.primary',
           }}
         >
           {line.replace(/^\*\*|\*\*$/g, '')}
@@ -46,94 +53,106 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       ));
   };
 
+  // 메시지 버블 스타일 메모이제이션
+  const bubbleStyles = useMemo(() => ({
+    p: { xs: 1.5, md: 2 },
+    background: isUser 
+      ? 'linear-gradient(135deg, #3B82F6 0%, #10B981 100%)' 
+      : 'rgba(30, 41, 59, 0.8)',
+    color: isUser ? 'white' : 'text.primary',
+    borderRadius: 2.5,
+    borderBottomLeftRadius: !isUser ? 0.5 : 2.5,
+    borderBottomRightRadius: isUser ? 0.5 : 2.5,
+    maxWidth: '100%',
+    wordBreak: 'break-word' as const,
+    border: !isUser ? '1px solid rgba(59, 130, 246, 0.2)' : 'none',
+    boxShadow: isUser 
+      ? '0 4px 12px rgba(59, 130, 246, 0.25)' 
+      : '0 2px 8px rgba(0,0,0,0.1)',
+    position: 'relative' as const,
+    backdropFilter: !isUser ? 'blur(10px)' : 'none',
+    // 말풍선 꼬리
+    '&::after': isUser ? {
+      content: '""',
+      position: 'absolute',
+      bottom: 4,
+      right: -6,
+      width: 0,
+      height: 0,
+      borderLeft: '6px solid #10B981',
+      borderTop: '4px solid transparent',
+      borderBottom: '4px solid transparent',
+    } : {
+      content: '""',
+      position: 'absolute',
+      bottom: 4,
+      left: -6,
+      width: 0,
+      height: 0,
+      borderRight: '6px solid rgba(30, 41, 59, 0.8)',
+      borderTop: '4px solid transparent',
+      borderBottom: '4px solid transparent',
+    },
+    // 테두리와 매칭되는 꼬리 (봇 메시지만)
+    '&::before': !isUser ? {
+      content: '""',
+      position: 'absolute',
+      bottom: 4,
+      left: -7,
+      width: 0,
+      height: 0,
+      borderRight: '7px solid rgba(59, 130, 246, 0.2)',
+      borderTop: '5px solid transparent',
+      borderBottom: '5px solid transparent',
+    } : {},
+  }), [isUser]);
+
+  const avatarStyles = useMemo(() => ({
+    bgcolor: isUser ? 'primary.main' : 'background.paper',
+    width: { xs: 32, md: 36 },
+    height: { xs: 32, md: 36 },
+    border: !isUser ? '2px solid rgba(59, 130, 246, 0.3)' : 'none',
+    boxShadow: !isUser ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+  }), [isUser]);
+
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: isUser ? 'row-reverse' : 'row',
-        mb: { xs: 2, sm: 2.5 },
+        mb: { xs: 1.5, md: 2 },
         alignItems: 'flex-start',
-        gap: { xs: 1, sm: 1.5 },
+        gap: { xs: 1, md: 1.5 },
         maxWidth: '100%',
+        animation: 'messageSlideIn 0.4s ease-out',
       }}
     >
       {/* 아바타 */}
       <Avatar
-        sx={{
-          bgcolor: isUser ? 'primary.main' : 'white',
-          width: { xs: 36, sm: 40 },
-          height: { xs: 36, sm: 40 },
-          border: !isUser ? '2px solid #f0f0f0' : 'none',
-          boxShadow: !isUser ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
-        }}
+        sx={avatarStyles}
         src={!isUser ? '/woojin.jpg' : undefined}
       >
-        {isUser ? <PersonIcon fontSize="small" /> : <SmartToyIcon fontSize="small" />}
+        {isUser ? (
+          <PersonIcon fontSize={isMobile ? 'small' : 'medium'} />
+        ) : (
+          <SmartToyIcon fontSize={isMobile ? 'small' : 'medium'} />
+        )}
       </Avatar>
 
       {/* 메시지 내용 */}
       <Box
         sx={{
-          maxWidth: { xs: 'calc(100% - 50px)', sm: '75%' },
+          maxWidth: { xs: 'calc(100% - 45px)', md: '75%' },
           display: 'flex',
           flexDirection: 'column',
           alignItems: isUser ? 'flex-end' : 'flex-start',
-          minWidth: 0, // flex 자식의 shrink를 위해 필요
+          minWidth: 0,
         }}
       >
         {/* 메시지 버블 */}
         <Paper
           elevation={0}
-          sx={{
-            p: { xs: 1.5, sm: 2 },
-            background: isUser 
-              ? 'linear-gradient(135deg, #4285f4 0%, #34a853 100%)' 
-              : 'white',
-            color: isUser ? 'white' : 'text.primary',
-            borderRadius: 3,
-            borderBottomLeftRadius: !isUser ? 0 : 3,
-            borderBottomRightRadius: isUser ? 0 : 3,
-            maxWidth: '100%',
-            wordBreak: 'break-word',
-            border: !isUser ? '1px solid #f0f0f0' : 'none',
-            boxShadow: isUser 
-              ? '0 4px 12px rgba(66, 133, 244, 0.3)' 
-              : '0 2px 8px rgba(0,0,0,0.1)',
-            position: 'relative',
-            '&::after': isUser ? {
-              content: '""',
-              position: 'absolute',
-              bottom: 8,
-              right: -8,
-              width: 0,
-              height: 0,
-              borderLeft: '8px solid #4285f4',
-              borderTop: '6px solid transparent',
-              borderBottom: '6px solid transparent',
-            } : {
-              content: '""',
-              position: 'absolute',
-              bottom: 8,
-              left: -8,
-              width: 0,
-              height: 0,
-              borderRight: '8px solid white',
-              borderTop: '6px solid transparent',
-              borderBottom: '6px solid transparent',
-            },
-            // 챗봇 메시지 테두리와 매칭되는 꼬리 테두리
-            '&::before': !isUser ? {
-              content: '""',
-              position: 'absolute',
-              bottom: 8,
-              left: -9,
-              width: 0,
-              height: 0,
-              borderRight: '9px solid #f0f0f0',
-              borderTop: '7px solid transparent',
-              borderBottom: '7px solid transparent',
-            } : {},
-          }}
+          sx={bubbleStyles}
         >
           {formatText(text)}
         </Paper>
@@ -146,17 +165,26 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
                 key={index}
                 title={`유사도: ${Math.round(ctx.similarity * 100)}%`}
                 arrow
+                placement="top"
               >
                 <Chip
-                  icon={<SourceIcon />}
+                  icon={<SourceIcon fontSize="small" />}
                   label={ctx.source.replace('.txt', '')}
                   size="small"
                   variant="outlined"
                   sx={{
-                    fontSize: '0.7rem',
-                    height: 24,
+                    fontSize: { xs: '0.65rem', md: '0.7rem' },
+                    height: { xs: 22, md: 24 },
                     color: 'text.secondary',
-                    borderColor: 'divider',
+                    borderColor: 'rgba(59, 130, 246, 0.3)',
+                    background: 'rgba(59, 130, 246, 0.05)',
+                    '&:hover': {
+                      background: 'rgba(59, 130, 246, 0.1)',
+                      borderColor: 'rgba(59, 130, 246, 0.5)',
+                    },
+                    '& .MuiChip-icon': {
+                      color: 'rgba(59, 130, 246, 0.7)',
+                    },
                   }}
                 />
               </Tooltip>
@@ -170,7 +198,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           color="text.secondary"
           sx={{
             mt: 0.5,
-            fontSize: '0.7rem',
+            fontSize: { xs: '0.65rem', md: '0.7rem' },
+            opacity: 0.8,
           }}
         >
           {formatTime(timestamp)}
@@ -180,4 +209,4 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   );
 };
 
-export default ChatMessage;
+export default memo(ChatMessage);

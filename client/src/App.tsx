@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Box, Container, Typography, Paper, Fade, useMediaQuery } from '@mui/material';
-import ChatInterface from './components/ChatInterface';
+import { CssBaseline, Box, Container, Typography, Fade, useMediaQuery } from '@mui/material';
+import ChatApp from './components/ChatApp';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
@@ -176,24 +176,19 @@ function App() {
               </Box>
 
               {/* 챗봇 인터페이스 */}
-              <Paper
-                elevation={0}
+              <Box
                 sx={{
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'column',
                   minHeight: { xs: '60vh', md: '65vh' },
-                  maxHeight: { xs: '70vh', md: '75vh' },
+                  maxHeight: { xs: '75vh', md: '80vh' },
                   mx: { xs: 0, md: 2 },
-                  p: { xs: 2, md: 3 },
-                  background: 'rgba(30, 41, 59, 0.6)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(59, 130, 246, 0.3)',
-                  borderRadius: { xs: 2, md: 3 },
+                  // ChatApp 내부에서 패딩 처리
                 }}
               >
-                <ChatInterface />
-              </Paper>
+                <ChatApp />
+              </Box>
             </Box>
           </Fade>
 
