@@ -17,59 +17,243 @@ const anthropic = new Anthropic({
     apiKey: process.env.CLAUDE_API_KEY,
 });
 
-// RAG 검색 함수 (server.js에서 복사)
-async function searchDocuments(query, limit = 5, sourceType = null) {
-    try {
-        console.log(`\n🔍 [검색 시작] 쿼리: "${query}"`);
-        
-        // 검색어 확장 (교수 이름 검색 개선)
-        let expandedQuery = query;
-        if (query.includes('교수') || query.includes('선생님')) {
-            expandedQuery = `${query} 강의 과목 담당 수업 시간표`;
-        }
-        if (query.includes('모든 교수') || query.includes('교수님들')) {
-            expandedQuery = `${query} 교수 담당 강의 시간표 과목 목록`;
-        }
-        
-        console.log(`📝 [확장된 쿼리] "${expandedQuery}"`);
+// server.js의 새로운 검색 시스템을 복사하여 테스트용으로 사용
+const synonymDict = {
+    '교수': ['교수님', '선생님', '강사', '교수진'],
+    '수강신청': ['강의신청', '과목신청', '등록'],
+    '시간표': ['강의시간', '수업시간', '강의일정', '수업일정'],
+    '학과': ['전공', '학부', '과', '계열'],
+    '캠퍼스': ['교정', '학교', '대학'],
+    '기숙사': ['생활관', '도미토리', '숙소'],
+    '도서관': ['중앙도서관', '라이브러리', '열람실']
+};
 
-        // 쿼리를 임베딩으로 변환
-        console.log('🤖 [OpenAI] 임베딩 생성 중...');
-        const embeddingResponse = await openai.embeddings.create({
-            model: process.env.EMBEDDING_MODEL || 'text-embedding-3-small',
-            input: expandedQuery,
-            encoding_format: "float",
+function expandQuery(query) {
+    let expandedQuery = query;
+    
+    if (query.includes('교수') || query.includes('선생님')) {
+        expandedQuery = `${query} 강의 과목 담당 수업 시간표`;
+    }
+    if (query.includes('모든 교수') || query.includes('교수님들')) {
+        expandedQuery = `${query} 교수 담당 강의 시간표 과목 목록`;
+    }
+    
+    for (const [key, synonyms] of Object.entries(synonymDict)) {
+        if (query.includes(key)) {
+            expandedQuery += ' ' + synonyms.join(' ');
+        }
+    }
+    
+    if (query.includes('학과') || query.includes('전공')) {
+        expandedQuery += ' 학부 과 전공 교육과정 교수진';
+    }
+    
+    if (query.includes('수강신청') || query.includes('강의신청')) {
+        expandedQuery += ' 등록 신청기간 일정 방법';
+    }
+    
+    return expandedQuery.trim();
+}
+
+function classifyQuestion(query) {
+    if (query.includes('교수') || query.includes('선생님') || query.includes('강사') || 
+        query.includes('시간표') || query.includes('강의') || query.includes('수업')) {
+        return { type: 'professor_course', priority: 'timetable' };
+    }
+    
+    if (query.includes('학과') || query.includes('전공') || query.includes('학부') || 
+        query.includes('입학') || query.includes('모집')) {
+        return { type: 'department_admission', priority: 'website' };
+    }
+    
+    if (query.includes('수강신청') || query.includes('강의신청') || query.includes('등록') ||
+        query.includes('학사일정') || query.includes('일정')) {
+        return { type: 'registration_schedule', priority: 'announcement' };
+    }
+    
+    if (query.includes('도서관') || query.includes('기숙사') || query.includes('생활관') ||
+        query.includes('캠퍼스') || query.includes('위치') || query.includes('건물')) {
+        return { type: 'facility_campus', priority: 'website' };
+    }
+    
+    return { type: 'general', priority: null };
+}
+
+async function hybridSearchWithThreshold(query, limit, sourceType, threshold) {
+    const expandedQuery = expandQuery(query);
+    
+    console.log(`🤖 [OpenAI] 임베딩 생성 중... (임계값: ${threshold})`);
+    const embeddingResponse = await openai.embeddings.create({
+        model: process.env.EMBEDDING_MODEL || 'text-embedding-3-small',
+        input: expandedQuery,
+        encoding_format: "float",
+    });
+
+    const queryEmbedding = embeddingResponse.data[0].embedding;
+
+    console.log('🗄️ [Supabase] 하이브리드 검색 중...');
+    const { data, error } = await supabase
+        .rpc('hybrid_search_documents', {
+            query_embedding: queryEmbedding,
+            search_keywords: expandedQuery,
+            vector_threshold: threshold,
+            match_count: limit,
+            filter_source_type: sourceType,
+            vector_weight: 0.7,
+            keyword_weight: 0.3
         });
-        console.log(`✅ [OpenAI] 임베딩 성공 (차원: ${embeddingResponse.data[0].embedding.length})`);
 
-        const queryEmbedding = embeddingResponse.data[0].embedding;
-
-        // Supabase에서 유사 문서 검색
-        console.log('🗄️ [Supabase] 문서 검색 중...');
-        const { data, error } = await supabase
+    if (error) {
+        console.log('⚠️ [Supabase] 하이브리드 검색 실패, 폴백 검색 시도...');
+        // 폴백: 기존 벡터 검색
+        const fallbackResult = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.25,
+                match_threshold: threshold,
                 match_count: limit,
                 filter_source_type: sourceType
             });
+        
+        if (fallbackResult.error) throw fallbackResult.error;
+        return fallbackResult.data || [];
+    }
+    
+    return data || [];
+}
 
-        if (error) {
-            console.error('❌ [Supabase] 검색 오류:', error);
-            throw error;
+async function adaptiveSearchDocuments(query, limit = 8, sourceType = null) {
+    try {
+        console.log(`🎯 [적응형 검색 시작] "${query}"`);
+        
+        // 1단계: 높은 임계값으로 정확한 매칭
+        let results = await hybridSearchWithThreshold(query, limit, sourceType, 0.4);
+        if (results.length >= 3) {
+            console.log(`✅ [적응형 검색] 1단계 성공 - ${results.length}개 문서 (임계값: 0.4)`);
+            return results;
         }
-
-        console.log(`✅ [Supabase] 검색 성공 (${data?.length || 0}개 문서 발견)`);
-        if (data && data.length > 0) {
-            data.forEach((doc, index) => {
-                console.log(`  ${index + 1}. 유사도: ${doc.similarity?.toFixed(3)}, 소스: ${doc.source_file}, 내용: ${doc.content.substring(0, 50)}...`);
-            });
+        
+        // 2단계: 중간 임계값으로 확장
+        results = await hybridSearchWithThreshold(query, limit, sourceType, 0.25);
+        if (results.length >= 2) {
+            console.log(`✅ [적응형 검색] 2단계 성공 - ${results.length}개 문서 (임계값: 0.25)`);
+            return results;
         }
-
-        return data || [];
+        
+        // 3단계: 낮은 임계값으로 최대 확장
+        results = await hybridSearchWithThreshold(query, limit, sourceType, 0.15);
+        console.log(`✅ [적응형 검색] 3단계 완료 - ${results.length}개 문서 (임계값: 0.15)`);
+        
+        return results;
     } catch (error) {
-        console.error('💥 [검색 오류]', error.message);
+        console.error('💥 [적응형 검색 실패]', error.message);
         throw error;
+    }
+}
+
+async function smartRoutingSearch(query, limit = 8) {
+    try {
+        const classification = classifyQuestion(query);
+        console.log(`🧠 [스마트 라우팅] 질문 분류: ${classification.type}, 우선순위: ${classification.priority}`);
+        
+        let results = [];
+        
+        if (classification.priority) {
+            // 1단계: 우선순위 소스에서 검색
+            results = await adaptiveSearchDocuments(query, Math.ceil(limit * 0.7), classification.priority);
+            console.log(`📊 [스마트 라우팅] 우선순위(${classification.priority}) 검색: ${results.length}개 문서`);
+            
+            // 2단계: 결과가 부족하면 전체 소스에서 추가 검색
+            if (results.length < 3) {
+                const additionalResults = await adaptiveSearchDocuments(query, limit - results.length, null);
+                console.log(`📊 [스마트 라우팅] 전체 검색 보완: ${additionalResults.length}개 문서`);
+                
+                // 중복 제거하며 결합
+                const existingIds = new Set(results.map(doc => doc.id));
+                const newResults = additionalResults.filter(doc => !existingIds.has(doc.id));
+                results = [...results, ...newResults];
+            }
+        } else {
+            results = await adaptiveSearchDocuments(query, limit, null);
+        }
+        
+        console.log(`🎯 [스마트 라우팅] 최종 결과: ${results.length}개 문서`);
+        return results;
+        
+    } catch (error) {
+        console.error('💥 [스마트 라우팅 실패]', error.message);
+        return await adaptiveSearchDocuments(query, limit, null);
+    }
+}
+
+// 웹 검색 보강 시스템
+async function webSearchFallback(query) {
+    try {
+        console.log(`🌐 [웹 검색 보강] "${query}" 실행...`);
+        
+        const fallbackResponses = {
+            '위치': '경기도 포천시 호국로 1007',
+            '전화': '031-539-1114',
+            '설립': '1987년',
+            '홈페이지': 'www.daejin.ac.kr',
+            '컴퓨터공학과': '공과대학 소속, 소프트웨어 개발 및 컴퓨터 시스템 전문가 양성',
+            '기숙사': '생활관 운영, 캠퍼스 내 위치',
+            '도서관': '중앙도서관 운영, 학습 공간 및 자료 제공'
+        };
+        
+        for (const [key, info] of Object.entries(fallbackResponses)) {
+            if (query.includes(key)) {
+                console.log(`✅ [웹 검색 보강] "${key}" 키워드 매칭됨`);
+                return [{
+                    id: 'web_fallback',
+                    content: `대진대학교 ${key}: ${info}`,
+                    source_file: 'web_search_fallback',
+                    source_type: 'web_fallback',
+                    similarity: 0.8
+                }];
+            }
+        }
+        
+        console.log(`❌ [웹 검색 보강] 매칭되는 키워드 없음`);
+        return [];
+    } catch (error) {
+        console.error('💥 [웹 검색 보강 실패]', error.message);
+        return [];
+    }
+}
+
+// 메인 검색 함수
+async function searchDocuments(query, limit = 8, sourceType = null) {
+    console.log(`\n🚀 [향상된 검색 시작] 쿼리: "${query}"`);
+    
+    const expandedQuery = expandQuery(query);
+    console.log(`📝 [쿼리 확장] "${query}" → "${expandedQuery}"`);
+    
+    try {
+        let results = [];
+        
+        if (sourceType) {
+            results = await adaptiveSearchDocuments(query, limit, sourceType);
+        } else {
+            results = await smartRoutingSearch(query, limit);
+        }
+        
+        // 결과가 부족한 경우 웹 검색 보강 적용
+        if (results.length < 3) {
+            console.log(`⚠️ [검색 보강] 결과 부족 (${results.length}개), 웹 검색 보강 시도...`);
+            const webResults = await webSearchFallback(query);
+            
+            if (webResults.length > 0) {
+                console.log(`✅ [검색 보강] 웹 검색에서 ${webResults.length}개 추가 결과 획득`);
+                results = [...results, ...webResults];
+            }
+        }
+        
+        return results;
+        
+    } catch (error) {
+        console.error('💥 [검색 실패]', error.message);
+        // 최종 폴백: 웹 검색 보강만 시도
+        return await webSearchFallback(query);
     }
 }
 
