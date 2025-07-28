@@ -396,7 +396,12 @@ const QuickActionsPanel: React.FC<{
             <Chip
               key={action.id}
               icon={
-                <Box sx={{ color: action.color, fontSize: 18, display: 'flex' }}>
+                <Box sx={{ 
+                  color: action.color, 
+                  fontSize: 18, 
+                  display: 'flex',
+                  mr: 1,
+                }}>
                   {action.icon}
                 </Box>
               }
@@ -418,6 +423,7 @@ const QuickActionsPanel: React.FC<{
                 color: '#2D3748',
                 '& .MuiChip-label': {
                   padding: 0,
+                  paddingLeft: '8px',
                   fontWeight: 500,
                   textAlign: 'left',
                   lineHeight: 1.5,
@@ -693,7 +699,8 @@ const ChatPageBright: React.FC = () => {
                   sx={{
                     fontWeight: 700,
                     fontSize: { xs: '1.1rem', md: '1.25rem' },
-                    color: '#2D3748',
+                    color: '#FFFFFF',
+                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
                     lineHeight: 1.2,
                   }}
                 >
@@ -702,8 +709,9 @@ const ChatPageBright: React.FC = () => {
                 <Typography
                   variant="caption"
                   sx={{
-                    color: '#4A5568',
+                    color: 'rgba(255, 255, 255, 0.9)',
                     fontSize: { xs: '0.75rem', md: '0.8rem' },
+                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.3)',
                     lineHeight: 1,
                     display: 'block',
                   }}
@@ -751,14 +759,15 @@ const ChatPageBright: React.FC = () => {
                 size={isMobile ? 'small' : 'medium'}
                 onClick={clearChat}
                 sx={{
-                  color: '#4A5568',
+                  color: 'rgba(255, 255, 255, 0.9)',
                   width: { xs: 40, md: 44 },
                   height: { xs: 40, md: 44 },
-                  background: 'rgba(74, 85, 104, 0.1)',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
                   transition: 'all 0.3s ease-in-out',
                   '&:hover': {
-                    background: 'rgba(102, 126, 234, 0.15)',
-                    color: '#667eea',
+                    background: 'rgba(255, 255, 255, 0.3)',
+                    color: '#FFFFFF',
                     transform: 'rotate(180deg)',
                   },
                 }}
