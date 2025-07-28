@@ -383,7 +383,8 @@ const QuickActionsPanel: React.FC<{
             fontWeight="700"
             sx={{ 
               fontSize: { xs: '1.1rem', md: '1.2rem' },
-              color: '#2D3748',
+              color: '#FFFFFF',
+              textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
             }}
           >
             자주 묻는 질문들
@@ -454,7 +455,8 @@ const QuickActionsPanel: React.FC<{
             sx={{ 
               textAlign: 'center',
               fontSize: { xs: '0.8rem', md: '0.85rem' },
-              color: '#4A5568',
+              color: 'rgba(255, 255, 255, 0.8)',
+              textShadow: '0 1px 4px rgba(0, 0, 0, 0.3)',
               fontStyle: 'italic',
             }}
           >
@@ -910,13 +912,13 @@ const ChatPageBright: React.FC = () => {
                       },
                     },
                     '& .MuiInputBase-input': {
-                      color: '#2D3748',
+                      color: '#FFFFFF',
                       fontSize: { xs: '0.95rem', md: '1rem' },
                       lineHeight: 1.6,
                       py: { xs: 1.5, md: 2 },
                       px: { xs: 2, md: 2.5 },
                       '&::placeholder': {
-                        color: '#A0AEC0',
+                        color: 'rgba(255, 255, 255, 0.6)',
                         opacity: 1,
                       },
                     },
