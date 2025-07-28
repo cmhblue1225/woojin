@@ -395,9 +395,11 @@ const QuickActionsPanel: React.FC<{
           {QUICK_ACTIONS.map((action, index) => (
             <Chip
               key={action.id}
-              icon={React.cloneElement(action.icon, { 
-                style: { color: action.color, fontSize: 18 } 
-              })}
+              icon={
+                <Box sx={{ color: action.color, fontSize: 18, display: 'flex' }}>
+                  {action.icon}
+                </Box>
+              }
               label={action.text}
               onClick={() => !disabled && onQuickAction(action.text)}
               disabled={disabled}
