@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Box, Container, Typography, Fade, useMediaQuery } from '@mui/material';
-import ChatApp from './components/ChatApp';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import { CssBaseline, Box, Fade } from '@mui/material';
+import ChatPageNew from './components/ChatPageNew';
 import LoadingScreen from './components/LoadingScreen';
 import './App.css';
 
@@ -84,7 +82,6 @@ const theme = createTheme({
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     // 초기 로딩 시뮬레이션
@@ -127,73 +124,21 @@ function App() {
           }}
         />
         
-        {/* 메인 컨테이너 */}
-        <Container
-          maxWidth="lg"
+        {/* 메인 컨테이너 - 새로운 채팅 페이지 */}
+        <Box
           sx={{
             position: 'relative',
             zIndex: 1,
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            py: { xs: 2, md: 3 },
+            width: '100%',
+            height: '100vh',
           }}
         >
-          <Header />
-          
           <Fade in timeout={1000}>
-            <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-              {/* 히어로 섹션 */}
-              <Box
-                sx={{
-                  textAlign: 'center',
-                  mb: { xs: 3, md: 4 },
-                  mt: { xs: 2, md: 3 },
-                }}
-              >
-                <Typography
-                  variant="h1"
-                  sx={{
-                    mb: 2,
-                    fontSize: { xs: '2rem', md: '2.5rem' },
-                  }}
-                >
-                  대진대학교 AI 챗봇 우진이
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: 'text.secondary',
-                    maxWidth: '600px',
-                    mx: 'auto',
-                    mb: 3,
-                    fontSize: { xs: '0.95rem', md: '1.1rem' },
-                  }}
-                >
-                  학사정보, 시간표, 수강신청 등 대학 생활의 모든 궁금한 것들을 물어보세요. 
-                  새롭게 추가된 홈페이지 정보까지 더욱 정확하고 빠르게 답변해드립니다.
-                </Typography>
-              </Box>
-
-              {/* 챗봇 인터페이스 */}
-              <Box
-                sx={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  minHeight: { xs: '60vh', md: '65vh' },
-                  maxHeight: { xs: '75vh', md: '80vh' },
-                  mx: { xs: 0, md: 2 },
-                  // ChatApp 내부에서 패딩 처리
-                }}
-              >
-                <ChatApp />
-              </Box>
+            <Box sx={{ width: '100%', height: '100%' }}>
+              <ChatPageNew />
             </Box>
           </Fade>
-
-          <Footer />
-        </Container>
+        </Box>
       </Box>
     </ThemeProvider>
   );

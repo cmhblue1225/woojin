@@ -98,7 +98,7 @@ function createContext(documents) {
     return context;
 }
 
-// Claude API를 사용한 응답 생성
+// Claude API를 사용한 응답 생성 (오류 시 기본 응답 제공)
 async function generateResponse(userMessage, context) {
     const systemPrompt = `당신은 대진대학교의 도움이 되는 AI 챗봇입니다. 학생들의 질문에 친근하고 정확하게 답변해주세요.
 
@@ -139,11 +139,34 @@ ${context}`;
         
         return responseText;
     } catch (error) {
-        console.error('Claude API 오류:', error);
-        console.error('Error details:', error.message);
-        console.error('Error stack:', error.stack);
+        console.error('Claude API 오류:', error.message);
+        
+        // Claude API 오류 시 기본 응답 생성
+        if (error.status === 529 || error.message.includes('Overloaded')) {
+            console.log('[Claude] API 과부하 - 기본 응답 제공');
+            return generateFallbackResponse(userMessage, context);
+        }
+        
         throw error;
     }
+}
+
+// Claude API 오류 시 사용할 기본 응답 생성
+function generateFallbackResponse(userMessage, context) {
+    console.log('[Fallback] 기본 응답 생성 중...');
+    
+    // 기본 인사말
+    if (userMessage.includes('안녕') || userMessage.includes('하이') || userMessage.includes('hello')) {
+        return '안녕하세요! 🎓 대진대학교 AI 챗봇 우진이입니다.\n\n현재 Claude API가 일시적으로 과부하 상태입니다. 잠시 후 다시 시도해주시면 더 자세한 답변을 드릴 수 있습니다!\n\n그래도 기본적인 정보는 검색된 자료를 바탕으로 도움을 드릴게요. 😊';
+    }
+    
+    // 컨텍스트 기반 간단한 응답
+    if (context && context !== '관련 정보를 찾을 수 없습니다.') {
+        return `질문하신 "${userMessage}"에 대한 정보를 찾았습니다!\n\n${context.substring(0, 500)}...\n\n💡 더 자세한 정보가 필요하시면 잠시 후 다시 질문해주세요. 현재 AI 서비스가 일시적으로 과부하 상태입니다.`;
+    }
+    
+    // 기본 응답
+    return `"${userMessage}"에 대한 질문을 받았습니다.\n\n죄송하지만 현재 AI 서비스가 일시적으로 과부하 상태입니다. 🔧\n\n다음과 같은 방법을 시도해보세요:\n• 잠시 후 다시 질문해주세요\n• 더 구체적인 질문으로 다시 시도해보세요\n• 수강신청, 시간표, 교수님 정보 등에 대해 질문해주세요\n\n감사합니다! 😊`;
 }
 
 // API 라우트
@@ -236,6 +259,9 @@ app.post('/api/chat', async (req, res) => {
 
     } catch (error) {
         console.error('챗봇 API 오류:', error);
+        console.error('오류 스택:', error.stack);
+        console.error('오류 타입:', error.constructor.name);
+        console.error('오류 메시지:', error.message);
         res.status(500).json({ 
             error: '챗봇 서비스에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' 
         });
