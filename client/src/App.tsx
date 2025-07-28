@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Box, Fade } from '@mui/material';
-import ChatPageNew from './components/ChatPageNew';
+import ChatPageBright from './components/ChatPageBright';
 import LoadingScreen from './components/LoadingScreen';
 import './App.css';
 
-// 대진대학교 테마 설정
+// 대진대학교 밝은 테마 설정
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
-      main: '#3B82F6', // 대진대 블루
-      light: '#60A5FA',
-      dark: '#1E40AF',
+      main: '#667eea', // 부드러운 보라색
+      light: '#a4b7f7',
+      dark: '#4c63d2',
     },
     secondary: {
-      main: '#10B981', // 에메랄드 그린
-      light: '#34D399',
-      dark: '#059669',
+      main: '#764ba2', // 깊은 보라색
+      light: '#9575cd',
+      dark: '#512da8',
     },
     background: {
-      default: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
-      paper: 'rgba(30, 41, 59, 0.8)',
+      default: '#FFFFFF',
+      paper: '#FFFFFF',
     },
     text: {
-      primary: '#F1F5F9',
-      secondary: '#CBD5E1',
+      primary: '#2D3748',
+      secondary: '#4A5568',
     },
   },
   typography: {
@@ -40,40 +40,47 @@ const theme = createTheme({
     h1: {
       fontSize: '2.5rem',
       fontWeight: 700,
-      background: 'linear-gradient(45deg, #3B82F6, #10B981)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
+      color: '#2D3748',
     },
     h2: {
       fontSize: '1.8rem',
       fontWeight: 600,
+      color: '#2D3748',
     },
     body1: {
       fontSize: '1rem',
       lineHeight: 1.6,
+      color: '#2D3748',
     },
   },
   shape: {
-    borderRadius: 16,
+    borderRadius: 20,
   },
   components: {
     MuiPaper: {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          backgroundColor: 'rgba(30, 41, 59, 0.8)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(59, 130, 246, 0.2)',
+          backgroundColor: '#FFFFFF',
+          boxShadow: '0 8px 32px rgba(45, 55, 72, 0.15)',
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          borderRadius: 16,
           textTransform: 'none',
           fontWeight: 600,
           fontSize: '0.95rem',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          fontWeight: 500,
         },
       },
     },
@@ -99,47 +106,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        sx={{
-          minHeight: '100vh',
-          background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        {/* 배경 패턴 */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `
-              radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)
-            `,
-            animation: 'float 20s ease-in-out infinite',
-          }}
-        />
-        
-        {/* 메인 컨테이너 - 새로운 채팅 페이지 */}
-        <Box
-          sx={{
-            position: 'relative',
-            zIndex: 1,
-            width: '100%',
-            height: '100vh',
-          }}
-        >
-          <Fade in timeout={1000}>
-            <Box sx={{ width: '100%', height: '100%' }}>
-              <ChatPageNew />
-            </Box>
-          </Fade>
+      <Fade in timeout={1000}>
+        <Box sx={{ width: '100%', height: '100vh' }}>
+          <ChatPageBright />
         </Box>
-      </Box>
+      </Fade>
     </ThemeProvider>
   );
 }
