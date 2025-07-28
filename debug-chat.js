@@ -49,7 +49,7 @@ async function searchDocuments(query, limit = 5, sourceType = null) {
         const { data, error } = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.1,
+                match_threshold: 0.25,
                 match_count: limit,
                 filter_source_type: sourceType
             });
@@ -142,7 +142,7 @@ async function testChat(message) {
         console.log(`\n🚀 채팅 테스트 시작: "${message}"`);
         
         // 1. 관련 문서 검색
-        const documents = await searchDocuments(message, 5);
+        const documents = await searchDocuments(message, 8);
         console.log(`📚 관련 문서 ${documents.length}개 발견`);
 
         // 2. 컨텍스트 생성

@@ -57,7 +57,7 @@ async function searchDocuments(query, limit = 5, sourceType = null) {
         const { data, error } = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.1, // 임계값을 0.3에서 0.1로 대폭 낮춤
+                match_threshold: 0.25, // 임계값을 0.25로 조정하여 품질과 재현율 균형 맞춤
                 match_count: limit,
                 filter_source_type: sourceType
             });
@@ -215,7 +215,7 @@ app.post('/api/chat', async (req, res) => {
         console.log(`[${new Date().toISOString()}] 사용자 질문: ${message}`);
 
         // 관련 문서 검색
-        const documents = await searchDocuments(message, 5);
+        const documents = await searchDocuments(message, 8);
         console.log(`관련 문서 ${documents.length}개 발견`);
 
         // 컨텍스트 생성
