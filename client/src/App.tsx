@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Box, Fade } from '@mui/material';
-import ChatPageBright from './components/ChatPageBright';
+import { ChatContainer } from './components/modern';
 import LoadingScreen from './components/LoadingScreen';
 import './App.css';
 
-// 대진대학교 밝은 테마 설정
-const theme = createTheme({
+// 모던 테마 설정 (다크/라이트 모드 대응)
+const createAppTheme = (mode: 'light' | 'dark') => createTheme({
   palette: {
-    mode: 'light',
+    mode,
     primary: {
-      main: '#667eea', // 부드러운 보라색
-      light: '#a4b7f7',
-      dark: '#4c63d2',
+      main: '#4F46E5', // 모던한 인디고
+      light: '#818CF8',
+      dark: '#3730A3',
     },
     secondary: {
-      main: '#764ba2', // 깊은 보라색
-      light: '#9575cd',
-      dark: '#512da8',
+      main: '#7C3AED', // 생동감 있는 보라
+      light: '#A78BFA',
+      dark: '#5B21B6',
     },
     background: {
-      default: '#FFFFFF',
-      paper: '#FFFFFF',
+      default: mode === 'light' ? '#FFFFFF' : '#0F172A',
+      paper: mode === 'light' ? '#FFFFFF' : '#1E293B',
     },
     text: {
-      primary: '#2D3748',
-      secondary: '#4A5568',
+      primary: mode === 'light' ? '#1a202c' : '#F1F5F9',
+      secondary: mode === 'light' ? '#4A5568' : '#CBD5E1',
     },
   },
   typography: {
@@ -40,36 +40,43 @@ const theme = createTheme({
     h1: {
       fontSize: '2.5rem',
       fontWeight: 700,
-      color: '#2D3748',
+      color: mode === 'light' ? '#1a202c' : '#F1F5F9',
     },
     h2: {
       fontSize: '1.8rem',
       fontWeight: 600,
-      color: '#2D3748',
+      color: mode === 'light' ? '#1a202c' : '#F1F5F9',
     },
     body1: {
       fontSize: '1rem',
       lineHeight: 1.6,
-      color: '#2D3748',
+      color: mode === 'light' ? '#1a202c' : '#F1F5F9',
+    },
+    body2: {
+      fontSize: '0.9rem',
+      lineHeight: 1.6,
+      color: mode === 'light' ? '#4A5568' : '#CBD5E1',
     },
   },
   shape: {
-    borderRadius: 20,
+    borderRadius: 16,
   },
   components: {
     MuiPaper: {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          backgroundColor: '#FFFFFF',
-          boxShadow: '0 8px 32px rgba(45, 55, 72, 0.15)',
+          backgroundColor: mode === 'light' ? '#FFFFFF' : '#1E293B',
+          boxShadow: mode === 'light' 
+            ? '0 8px 32px rgba(0, 0, 0, 0.1)' 
+            : '0 8px 32px rgba(0, 0, 0, 0.3)',
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
+          borderRadius: 12,
           textTransform: 'none',
           fontWeight: 600,
           fontSize: '0.95rem',
@@ -79,8 +86,17 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
+          borderRadius: 12,
           fontWeight: 500,
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 16,
+          },
         },
       },
     },
@@ -89,6 +105,7 @@ const theme = createTheme({
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     // 초기 로딩 시뮬레이션
@@ -99,16 +116,37 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // 시스템 테마 감지
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('woojin-chat-theme');
+    if (savedTheme) {
+      setThemeMode(savedTheme as 'light' | 'dark');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setThemeMode('dark');
+    }
+  }, []);
+
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={createAppTheme(themeMode)}>
       <CssBaseline />
       <Fade in timeout={1000}>
-        <Box sx={{ width: '100%', height: '100vh' }}>
-          <ChatPageBright />
+        <Box 
+          sx={{ 
+            width: '100%', 
+            height: '100vh',
+            // 글로벌 CSS 변수 설정
+            '--primary-color': '#4F46E5',
+            '--secondary-color': '#7C3AED',
+            '--bg-gradient': themeMode === 'light' 
+              ? 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)'
+              : 'linear-gradient(135deg, #1E1B4B 0%, #581C87 100%)',
+          }}
+        >
+          <ChatContainer />
         </Box>
       </Fade>
     </ThemeProvider>

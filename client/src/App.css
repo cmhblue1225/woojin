@@ -6,6 +6,28 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* 스크롤바 스타일링 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(79, 70, 229, 0.3) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(79, 70, 229, 0.3);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 70, 229, 0.5);
 }
 
 html, body, #root {
@@ -33,27 +55,27 @@ html, body, #root {
   }
 }
 
-/* 애니메이션 정의 */
-@keyframes float {
+/* 모던 채팅 UI 애니메이션 */
+@keyframes backgroundFloat {
   0%, 100% {
     transform: translate(0, 0) rotate(0deg);
   }
   33% {
-    transform: translate(30px, -30px) rotate(120deg);
+    transform: translate(20px, -20px) rotate(60deg);
   }
   66% {
-    transform: translate(-20px, 20px) rotate(240deg);
+    transform: translate(-15px, 15px) rotate(120deg);
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
   }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.8;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -68,6 +90,39 @@ html, body, #root {
   }
 }
 
+@keyframes typingDots {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.8;
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200px 0;
@@ -77,23 +132,25 @@ html, body, #root {
   }
 }
 
-@keyframes messageSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
 @keyframes typing {
   0%, 60%, 100% {
     transform: translateY(0);
   }
   30% {
     transform: translateY(-8px);
+  }
+}
+
+/* 기존 과호환성 애니메이션 */
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
   }
 }
 
