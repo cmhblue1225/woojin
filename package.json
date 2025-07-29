@@ -31,7 +31,14 @@
     "embedding-status": "node scripts/embedding-controller.js status",
     "pause-embedding": "node scripts/embedding-controller.js pause",
     "resume-embedding": "node scripts/embedding-controller.js resume",
-    "stop-embedding": "node scripts/embedding-controller.js stop"
+    "stop-embedding": "node scripts/embedding-controller.js stop",
+    "analyze-crawling": "node scripts/analyze-crawling-data.js",
+    "prepare-turbo": "node scripts/prepare-turbo-embedding.js",
+    "start-turbo-embedding": "node scripts/execute-turbo-embedding.js",
+    "resume-turbo-embedding": "node scripts/execute-turbo-embedding.js --resume",
+    "monitor-turbo": "node scripts/monitor-turbo-embedding.js",
+    "monitor-turbo-fast": "node scripts/monitor-turbo-embedding.js --fast",
+    "turbo-summary": "node scripts/monitor-turbo-embedding.js --summary"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",
