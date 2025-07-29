@@ -45,7 +45,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             fontWeight: line.startsWith('**') && line.endsWith('**') ? 600 : 400,
             fontSize: { xs: '0.85rem', md: '0.9rem' },
             lineHeight: 1.5,
-            color: isUser ? 'white' : 'text.primary',
+            color: '#ffffff', // 모든 메시지 텍스트 밝게
           }}
         >
           {line.replace(/^\*\*|\*\*$/g, '')}
@@ -53,58 +53,21 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       ));
   };
 
-  // 메시지 버블 스타일 메모이제이션
+  // 메시지 버블 스타일 메모이제이션 (꼬리 제거)
   const bubbleStyles = useMemo(() => ({
     p: { xs: 1.5, md: 2 },
     background: isUser 
       ? 'linear-gradient(135deg, #3B82F6 0%, #10B981 100%)' 
       : 'rgba(30, 41, 59, 0.8)',
-    color: isUser ? 'white' : 'text.primary',
-    borderRadius: 2.5,
-    borderBottomLeftRadius: !isUser ? 0.5 : 2.5,
-    borderBottomRightRadius: isUser ? 0.5 : 2.5,
+    color: isUser ? '#ffffff' : '#ffffff', // 사용자 메시지 텍스트 밝게
+    borderRadius: 2.5, // 모든 모서리 동일하게 둥글게
     maxWidth: '100%',
     wordBreak: 'break-word' as const,
     border: !isUser ? '1px solid rgba(59, 130, 246, 0.2)' : 'none',
     boxShadow: isUser 
       ? '0 4px 12px rgba(59, 130, 246, 0.25)' 
       : '0 2px 8px rgba(0,0,0,0.1)',
-    position: 'relative' as const,
     backdropFilter: !isUser ? 'blur(10px)' : 'none',
-    // 말풍선 꼬리
-    '&::after': isUser ? {
-      content: '""',
-      position: 'absolute',
-      bottom: 4,
-      right: -6,
-      width: 0,
-      height: 0,
-      borderLeft: '6px solid #10B981',
-      borderTop: '4px solid transparent',
-      borderBottom: '4px solid transparent',
-    } : {
-      content: '""',
-      position: 'absolute',
-      bottom: 4,
-      left: -6,
-      width: 0,
-      height: 0,
-      borderRight: '6px solid rgba(30, 41, 59, 0.8)',
-      borderTop: '4px solid transparent',
-      borderBottom: '4px solid transparent',
-    },
-    // 테두리와 매칭되는 꼬리 (봇 메시지만)
-    '&::before': !isUser ? {
-      content: '""',
-      position: 'absolute',
-      bottom: 4,
-      left: -7,
-      width: 0,
-      height: 0,
-      borderRight: '7px solid rgba(59, 130, 246, 0.2)',
-      borderTop: '5px solid transparent',
-      borderBottom: '5px solid transparent',
-    } : {},
   }), [isUser]);
 
   const avatarStyles = useMemo(() => ({

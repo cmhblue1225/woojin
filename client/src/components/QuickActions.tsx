@@ -122,10 +122,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
             fontWeight="700"
             sx={{ 
               fontSize: { xs: '0.9rem', md: '1rem' },
-              color: 'text.primary',
-              background: 'linear-gradient(45deg, #3B82F6, #10B981)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: '#ffffff', // 밝은 흰색으로 변경
             }}
           >
             자주 묻는 질문들
@@ -158,12 +155,12 @@ const QuickActions: React.FC<QuickActionsProps> = ({
         {/* 도우미 텍스트 */}
         <Typography
           variant="caption"
-          color="text.secondary"
           sx={{ 
             display: 'block',
             textAlign: 'center',
             fontSize: { xs: '0.7rem', md: '0.75rem' },
-            opacity: 0.8,
+            color: '#ffffff', // 밝은 흰색으로 변경
+            opacity: 0.9,
             fontStyle: 'italic',
           }}
         >

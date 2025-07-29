@@ -29,15 +29,19 @@ const anthropic = new Anthropic({
     apiKey: process.env.CLAUDE_API_KEY,
 });
 
-// 동의어 및 확장 키워드 사전
+// 동의어 및 확장 키워드 사전 (다국어 지원)
 const synonymDict = {
-    '교수': ['교수님', '선생님', '강사', '교수진'],
-    '수강신청': ['강의신청', '과목신청', '등록'],
-    '시간표': ['강의시간', '수업시간', '강의일정', '수업일정'],
-    '학과': ['전공', '학부', '과', '계열'],
-    '캠퍼스': ['교정', '학교', '대학'],
-    '기숙사': ['생활관', '도미토리', '숙소'],
-    '도서관': ['중앙도서관', '라이브러리', '열람실']
+    '교수': ['교수님', '선생님', '강사', '교수진', '教授', '老师'],
+    '수강신청': ['강의신청', '과목신청', '등록', '课程申请', '选课'],
+    '시간표': ['강의시간', '수업시간', '강의일정', '수업일정', '课程表', '时间表'],
+    '학과': ['전공', '학부', '과', '계열', '学科', '专业', '系'],
+    '캠퍼스': ['교정', '학교', '대학', '校园', '校区'],
+    '기숙사': ['생활관', '도미토리', '숙소', '宿舍', '生活館', '住宿'],
+    '도서관': ['중앙도서관', '라이브러리', '열람실', '图书馆', '圖書館'],
+    '위치': ['장소', '곳', '어디', '주소', '位置', '地址'],
+    '시간': ['운영시간', '이용시간', '개방시간', '时间', '開放時間'],
+    '신청': ['접수', '등록', '지원', '申请', '申請'],
+    '안내': ['정보', '소개', '가이드', '指南', '介绍']
 };
 
 // 쿼리 확장 함수
@@ -92,11 +96,11 @@ async function hybridSearchDocuments(query, limit = 8, sourceType = null) {
             .rpc('hybrid_search_documents', {
                 query_embedding: queryEmbedding,
                 search_keywords: expandedQuery,
-                vector_threshold: 0.25,
+                vector_threshold: 0.2,
                 match_count: limit,
                 filter_source_type: sourceType,
-                vector_weight: 0.7,
-                keyword_weight: 0.3
+                vector_weight: 0.6,
+                keyword_weight: 0.4
             });
 
         if (error) {
@@ -125,23 +129,23 @@ async function adaptiveSearchDocuments(query, limit = 8, sourceType = null) {
     try {
         console.log(`[적응형 검색 시작] "${query}"`);
         
-        // 1단계: 높은 임계값으로 정확한 매칭 시도
-        let results = await hybridSearchWithThreshold(query, limit, sourceType, 0.4);
+        // 1단계: 중간 임계값으로 정확한 매칭 시도 (낮춤)
+        let results = await hybridSearchWithThreshold(query, limit, sourceType, 0.3);
         if (results.length >= 3) {
-            console.log(`[적응형 검색] 1단계 성공 - ${results.length}개 문서 (임계값: 0.4)`);
+            console.log(`[적응형 검색] 1단계 성공 - ${results.length}개 문서 (임계값: 0.3)`);
             return results;
         }
         
-        // 2단계: 중간 임계값으로 확장
-        results = await hybridSearchWithThreshold(query, limit, sourceType, 0.25);
+        // 2단계: 낮은 임계값으로 확장
+        results = await hybridSearchWithThreshold(query, limit, sourceType, 0.2);
         if (results.length >= 2) {
-            console.log(`[적응형 검색] 2단계 성공 - ${results.length}개 문서 (임계값: 0.25)`);
+            console.log(`[적응형 검색] 2단계 성공 - ${results.length}개 문서 (임계값: 0.2)`);
             return results;
         }
         
-        // 3단계: 낮은 임계값으로 최대 확장
-        results = await hybridSearchWithThreshold(query, limit, sourceType, 0.15);
-        console.log(`[적응형 검색] 3단계 완료 - ${results.length}개 문서 (임계값: 0.15)`);
+        // 3단계: 매우 낮은 임계값으로 최대 확장
+        results = await hybridSearchWithThreshold(query, limit, sourceType, 0.1);
+        console.log(`[적응형 검색] 3단계 완료 - ${results.length}개 문서 (임계값: 0.1)`);
         
         return results;
     } catch (error) {
@@ -193,7 +197,7 @@ async function fallbackVectorSearch(query, limit, sourceType) {
         const { data, error } = await supabase
             .rpc('search_documents', {
                 query_embedding: queryEmbedding,
-                match_threshold: 0.25,
+                match_threshold: 0.15,
                 match_count: limit,
                 filter_source_type: sourceType
             });
