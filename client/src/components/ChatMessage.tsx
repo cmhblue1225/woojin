@@ -38,14 +38,16 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       .map((line, index) => (
         <Typography
           key={index}
-          variant="body2"
+          variant="body1"
           component="div"
           sx={{
-            mb: index < (text?.split('\n').length || 0) - 1 ? 0.5 : 0,
-            fontWeight: line.startsWith('**') && line.endsWith('**') ? 600 : 400,
-            fontSize: { xs: '0.85rem', md: '0.9rem' },
-            lineHeight: 1.5,
-            color: '#ffffff', // 모든 메시지 텍스트 밝게
+            mb: index < (text?.split('\n').length || 0) - 1 ? 0.8 : 0,
+            fontWeight: line.startsWith('**') && line.endsWith('**') ? 700 : 500,
+            fontSize: { xs: '0.9rem', md: '1rem' },
+            lineHeight: 1.6,
+            color: '#ffffff',
+            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+            letterSpacing: '0.01em',
           }}
         >
           {line.replace(/^\*\*|\*\*$/g, '')}
@@ -53,29 +55,64 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       ));
   };
 
-  // 메시지 버블 스타일 메모이제이션 (꼬리 제거)
+  // 새로운 모던 메시지 버블 스타일
   const bubbleStyles = useMemo(() => ({
-    p: { xs: 1.5, md: 2 },
+    p: { xs: 2, md: 2.5 },
     background: isUser 
-      ? 'linear-gradient(135deg, #3B82F6 0%, #10B981 100%)' 
-      : 'rgba(30, 41, 59, 0.8)',
-    color: isUser ? '#ffffff' : '#ffffff', // 사용자 메시지 텍스트 밝게
-    borderRadius: 2.5, // 모든 모서리 동일하게 둥글게
+      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' 
+      : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    color: '#ffffff',
+    borderRadius: '20px',
     maxWidth: '100%',
     wordBreak: 'break-word' as const,
-    border: !isUser ? '1px solid rgba(59, 130, 246, 0.2)' : 'none',
-    boxShadow: isUser 
-      ? '0 4px 12px rgba(59, 130, 246, 0.25)' 
-      : '0 2px 8px rgba(0,0,0,0.1)',
-    backdropFilter: !isUser ? 'blur(10px)' : 'none',
+    border: 'none',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+    position: 'relative' as const,
+    fontSize: { xs: '0.9rem', md: '1rem' },
+    fontWeight: 500,
+    lineHeight: 1.6,
+    // 부드러운 애니메이션 효과
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    '&:hover': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
+    },
+    // 내부 글로우 효과
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      borderRadius: '20px',
+      padding: '1px',
+      background: isUser 
+        ? 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)'
+        : 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)',
+      mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+      maskComposite: 'xor',
+      WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+      WebkitMaskComposite: 'xor',
+    }
   }), [isUser]);
 
   const avatarStyles = useMemo(() => ({
-    bgcolor: isUser ? 'primary.main' : 'background.paper',
-    width: { xs: 32, md: 36 },
-    height: { xs: 32, md: 36 },
-    border: !isUser ? '2px solid rgba(59, 130, 246, 0.3)' : 'none',
-    boxShadow: !isUser ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+    width: { xs: 40, md: 44 },
+    height: { xs: 40, md: 44 },
+    border: '3px solid rgba(255, 255, 255, 0.2)',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+    background: isUser 
+      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    '&:hover': {
+      transform: 'scale(1.1)',
+      boxShadow: '0 12px 32px rgba(0, 0, 0, 0.2)',
+    },
+    '& .MuiAvatar-img': {
+      borderRadius: '50%',
+    }
   }), [isUser]);
 
   return (
@@ -83,11 +120,21 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       sx={{
         display: 'flex',
         flexDirection: isUser ? 'row-reverse' : 'row',
-        mb: { xs: 1.5, md: 2 },
+        mb: { xs: 2.5, md: 3 },
         alignItems: 'flex-start',
-        gap: { xs: 1, md: 1.5 },
+        gap: { xs: 1.5, md: 2 },
         maxWidth: '100%',
-        animation: 'messageSlideIn 0.4s ease-out',
+        animation: 'messageSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+        '@keyframes messageSlideIn': {
+          '0%': {
+            opacity: 0,
+            transform: isUser ? 'translateX(30px)' : 'translateX(-30px)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateX(0)',
+          },
+        },
       }}
     >
       {/* 아바타 */}
@@ -105,11 +152,12 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       {/* 메시지 내용 */}
       <Box
         sx={{
-          maxWidth: { xs: 'calc(100% - 45px)', md: '75%' },
+          maxWidth: { xs: 'calc(100% - 60px)', md: '70%' },
           display: 'flex',
           flexDirection: 'column',
           alignItems: isUser ? 'flex-end' : 'flex-start',
           minWidth: 0,
+          gap: 1,
         }}
       >
         {/* 메시지 버블 */}
@@ -158,11 +206,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         {/* 타임스탬프 */}
         <Typography
           variant="caption"
-          color="text.secondary"
           sx={{
-            mt: 0.5,
-            fontSize: { xs: '0.65rem', md: '0.7rem' },
-            opacity: 0.8,
+            fontSize: { xs: '0.7rem', md: '0.75rem' },
+            opacity: 0.6,
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontWeight: 400,
+            textAlign: isUser ? 'right' : 'left',
+            px: 0.5,
           }}
         >
           {formatTime(timestamp)}
