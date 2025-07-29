@@ -62,16 +62,16 @@ const InputArea: React.FC<InputAreaProps> = ({
       <Paper
         elevation={0}
         sx={{
-          background: 'rgba(255, 255, 255, 0.95)',
+          background: 'rgba(255, 255, 255, 0.98)', // 투명도를 98%로 올려서 더 불투명하게
           backdropFilter: 'blur(20px)',
           borderRadius: '20px',
           border: isFocused
             ? '2px solid #4F46E5'
-            : '2px solid rgba(203, 213, 224, 0.5)',
+            : '2px solid rgba(203, 213, 224, 0.6)', // 테두리도 조금 더 진하게
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           boxShadow: isFocused
             ? '0 0 0 4px rgba(79, 70, 229, 0.1)'
-            : '0 4px 20px rgba(0, 0, 0, 0.05)',
+            : '0 4px 20px rgba(0, 0, 0, 0.08)', // 그림자도 조금 더 진하게
           position: 'relative',
           overflow: 'hidden',
           
@@ -169,14 +169,14 @@ const InputArea: React.FC<InputAreaProps> = ({
                 },
               },
               '& .MuiInputBase-input': {
-                color: '#1a202c',
+                color: '#1F2937', // 더 진한 다크 그레이로 변경
                 fontSize: { xs: '0.95rem', md: '1rem' },
                 lineHeight: 1.6,
                 py: { xs: 1.5, md: 2 },
                 px: { xs: 1, md: 1.5 },
-                fontWeight: 400,
+                fontWeight: 500, // 글자 굵기도 조금 증가
                 '&::placeholder': {
-                  color: '#9CA3AF',
+                  color: '#6B7280', // 플레이스홀더도 더 진하게
                   opacity: 1,
                   fontStyle: 'italic',
                 },
